@@ -16,6 +16,40 @@ SAP de forma nativa (sin el problema de red de WSL2).
 
 ---
 
+## ⚡ Copiar y pegar (Windows) — lo más rápido
+
+### A) Instalación / actualización automática (recomendado)
+
+Si **ya clonaste** el repo, pegá esto en **PowerShell** y hace todo
+(instala nvim si falta, actualiza, copia init.lua y keybindings con backup):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\nvim-config\vscode\install.ps1"
+```
+
+Si **todavía NO** clonaste el repo, pegá esto primero:
+
+```powershell
+git clone https://github.com/JCGDeveloper/nvim-config.git "$env:USERPROFILE\nvim-config"
+powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\nvim-config\vscode\install.ps1"
+```
+
+Después, en VSCode: `Ctrl+Shift+P` → **Developer: Reload Window**.
+
+### B) Solo actualizar el init.lua (cuando cambian los atajos)
+
+```powershell
+git -C "$env:USERPROFILE\nvim-config" pull
+Copy-Item "$env:USERPROFILE\nvim-config\vscode\init.lua" "$env:LOCALAPPDATA\nvim\init.lua" -Force
+```
+
+Después: `Ctrl+Shift+P` → **Developer: Reload Window**.
+
+> `install.ps1` **no toca tu `settings.json`** (para no pisar tus preferencias).
+> El `settings.json` se fusiona a mano una sola vez (ver Paso 6 más abajo).
+
+---
+
 ## Requisitos previos
 
 - Windows 10/11 con VSCode instalado.
