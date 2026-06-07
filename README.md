@@ -4,6 +4,14 @@ Mi configuración de Neovim (LazyVim). Portable: el mismo repo se instala en
 cualquier máquina con un solo comando, pensado especialmente para **Debian /
 Ubuntu bajo WSL2** (ordenador de empresa).
 
+## ¿Qué querés instalar?
+
+- **Neovim puro** (Debian/WSL2) → seguí la sección de abajo.
+- **VSCode con motor Neovim** (Windows, estilo terminal, SAP nativo) →
+  **paso a paso completo en [`vscode/README.md`](vscode/README.md)**.
+
+---
+
 ## Instalación en una máquina nueva (Debian / WSL2)
 
 ```sh
