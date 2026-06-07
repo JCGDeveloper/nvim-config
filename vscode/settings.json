@@ -1,24 +1,48 @@
 {
   // ════════════════════════════════════════════════════════════════════════
-  //  Fusioná estas claves con tu settings.json de VSCode
-  //  (Ctrl+Shift+P → "Preferences: Open User Settings (JSON)").
-  //  AJUSTÁ la ruta de nvim.exe y la del init de abajo a tu máquina.
+  //  settings.json — VSCode + vscode-neovim, estilo "tu nvim".
+  //  Fusioná estas claves con tu settings (Ctrl+Shift+P → Open User Settings JSON).
+  //  Requiere instalar:
+  //    · Extensión Kanagawa  (qufiwefefwoyn.kanagawa)
+  //    · Extensión GlassIt    (s-nlf-fh.glassit)        ← transparencia
+  //    · Fuente JetBrainsMono Nerd Font (en Windows)     ← ver README
   // ════════════════════════════════════════════════════════════════════════
 
   // ── Motor Neovim ─────────────────────────────────────────────────────────
-  // Mejor rendimiento: aísla la extensión en su propio proceso
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
   },
-  // Ruta al nvim.exe de Windows (ajustá según donde lo instale winget/scoop)
   "vscode-neovim.neovimExecutablePaths.win32": "C:\\Program Files\\Neovim\\bin\\nvim.exe",
-  // NOTA: el init.lua va en la ruta POR DEFECTO de nvim en Windows
-  // (%LOCALAPPDATA%\\nvim\\init.lua), así vscode-neovim lo carga solo y NO hace
-  // falta configurar neovimInitVimPaths (eso evita errores de ruta). Ver README.
 
-  // ── UI a cero (modo terminal: sin barras, sin clicks) ────────────────────
+  // ── Theme (Kanagawa, como tu gentleman-kanagawa-blur) ────────────────────
+  "workbench.colorTheme": "Kanagawa",
+
+  // ── Transparencia (extensión GlassIt) ────────────────────────────────────
+  // 0 = invisible, 255 = opaco. ~230 = transparencia sutil tipo blur.
+  "glassit.alpha": 230,
+
+  // ── Fuente (JetBrainsMono Nerd Font + ligaduras + iconos) ────────────────
+  "editor.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrains Mono', Consolas, monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 15,
+  "editor.lineHeight": 1.5,
+  "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font'",
+
+  // ── Cursor animado (como smear-cursor) ───────────────────────────────────
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorBlinking": "expand",
+  "editor.smoothScrolling": true,
+  "workbench.list.smoothScrolling": true,
+  "terminal.integrated.smoothScrolling": true,
+
+  // ── Brackets de colores + guías ──────────────────────────────────────────
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.indentation": true,
+
+  // ── UI a cero, pero CON statusline (tu lualine va abajo) ─────────────────
   "workbench.activityBar.location": "hidden",
-  "workbench.statusBar.visible": false,
+  "workbench.statusBar.visible": true,
   "workbench.editor.showTabs": "none",
   "workbench.layoutControl.enabled": false,
   "workbench.editor.editorActionsLocation": "hidden",
@@ -32,20 +56,13 @@
   "editor.overviewRulerBorder": false,
   "editor.hideCursorInOverviewRuler": true,
   "editor.glyphMargin": false,
-  "editor.folding": false,
   "editor.renderLineHighlight": "none",
-  "editor.guides.indentation": false,
   "editor.scrollBeyondLastLine": false,
 
   // ── Estilo tipo nvim ─────────────────────────────────────────────────────
   "editor.lineNumbers": "relative",
   "editor.cursorSurroundingLines": 8,
-  "editor.cursorBlinking": "solid",
-  "editor.lineHeight": 1.4,
-
-  // ── Theme (Kanagawa: lo más cercano a tu gentleman-kanagawa-blur) ─────────
-  // Requiere instalar la extensión "Kanagawa" (qufiwefefwoyn.kanagawa)
-  "workbench.colorTheme": "Kanagawa",
+  "window.titleBarStyle": "custom",
 
   // ── Comportamiento ───────────────────────────────────────────────────────
   "files.autoSave": "off",

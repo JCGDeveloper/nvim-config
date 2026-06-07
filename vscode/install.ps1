@@ -46,6 +46,17 @@ if (Test-Path "$repo\.git") {
 }
 Ok "Repo listo: $repo"
 
+# 2.5) Extensiones de VSCode ------------------------------------------------
+if (Get-Command code -ErrorAction SilentlyContinue) {
+  foreach ($ext in @("asvetliakov.vscode-neovim", "qufiwefefwoyn.kanagawa", "s-nlf-fh.glassit")) {
+    Info "Instalando extension $ext..."
+    code --install-extension $ext --force | Out-Null
+  }
+  Ok "Extensiones instaladas (vscode-neovim, kanagawa, glassit)"
+} else {
+  Warn "El comando 'code' no esta en el PATH; instala a mano: vscode-neovim, kanagawa, glassit."
+}
+
 # 3) init.lua -> ruta por defecto de nvim ------------------------------------
 New-Item -ItemType Directory -Force -Path $nvimCfg | Out-Null
 if (Test-Path "$nvimCfg\init.lua") {

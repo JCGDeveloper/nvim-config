@@ -126,8 +126,19 @@ Normalmente es `C:\Program Files\Neovim\bin\nvim.exe`.
 
 - **VSCode Neovim** — `asvetliakov.vscode-neovim`
 - **Kanagawa** (theme) — `qufiwefefwoyn.kanagawa`
+- **GlassIt-VSC** (transparencia) — `s-nlf-fh.glassit`
 - La extensión **ABAP** de tu empresa (o `ABAP remote filesystem`,
   `murbani.vscode-abap-remote-fs`) para conectarte a SAP.
+
+### Fuente: JetBrainsMono Nerd Font
+
+Para ver los iconos y las ligaduras como en tu nvim, instalá la **Nerd Font**:
+
+1. Descargá `JetBrainsMono.zip` de https://www.nerdfonts.com/font-downloads
+2. Descomprimí, seleccioná todos los `.ttf`, click derecho → **Instalar**.
+3. (O por terminal, si tenés Scoop: `scoop install JetBrainsMono-NF`.)
+
+El `settings.json` ya apunta a `'JetBrainsMono Nerd Font'`.
 
 ---
 
@@ -236,6 +247,23 @@ Ctrl/Tab/Esc y los del explorador en `keybindings.json`.
 copiar/cortar/pegar · `s` abrir al lado · `Enter` abrir/expandir.
 
 ---
+
+## Personalización (apariencia)
+
+Todo se ajusta en tu `settings.json`:
+
+| Quiero… | Clave | Valor |
+|---------|-------|-------|
+| Más/menos transparencia | `glassit.alpha` | `255` = opaco, `200` = muy transparente. Probá `215`–`235`. |
+| Subir/bajar la transparencia al vuelo | (atajos GlassIt) | `Ctrl+Alt+Z` (más opaco) / `Ctrl+Alt+C` (más transparente) |
+| Tamaño de letra | `editor.fontSize` | `15` por defecto |
+| Altura de línea | `editor.lineHeight` | `1.5` |
+| Cursor sin animación | `editor.cursorSmoothCaretAnimation` | `"off"` |
+| Ocultar la statusline (lualine) | `workbench.statusBar.visible` | `false` |
+| Sin guías de indentación | `editor.guides.indentation` | `false` |
+
+> **GlassIt** hace transparente **toda la ventana** (se ve lo que haya detrás),
+> no es blur selectivo como tu nvim — pero es lo más cercano y estable.
 
 ## Si algo no funciona
 
