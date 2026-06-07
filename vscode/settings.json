@@ -1,0 +1,52 @@
+{
+  // ════════════════════════════════════════════════════════════════════════
+  //  Fusioná estas claves con tu settings.json de VSCode
+  //  (Ctrl+Shift+P → "Preferences: Open User Settings (JSON)").
+  //  AJUSTÁ la ruta de nvim.exe y la del init de abajo a tu máquina.
+  // ════════════════════════════════════════════════════════════════════════
+
+  // ── Motor Neovim ─────────────────────────────────────────────────────────
+  // Mejor rendimiento: aísla la extensión en su propio proceso
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  // Ruta al nvim.exe de Windows (ajustá según donde lo instale winget/scoop)
+  "vscode-neovim.neovimExecutablePaths.win32": "C:\\Program Files\\Neovim\\bin\\nvim.exe",
+  // init.lua DEDICADO para vscode-neovim (NO el de LazyVim). Ver README.
+  "vscode-neovim.neovimInitVimPaths.win32": "C:\\Users\\TU_USUARIO\\AppData\\Local\\nvim-vscode\\init.lua",
+
+  // ── UI a cero (modo terminal: sin barras, sin clicks) ────────────────────
+  "workbench.activityBar.location": "hidden",
+  "workbench.statusBar.visible": false,
+  "workbench.editor.showTabs": "none",
+  "workbench.layoutControl.enabled": false,
+  "workbench.editor.editorActionsLocation": "hidden",
+  "workbench.tips.enabled": false,
+  "workbench.startupEditor": "none",
+  "breadcrumbs.enabled": false,
+  "window.menuBarVisibility": "toggle",
+  "editor.minimap.enabled": false,
+  "editor.scrollbar.vertical": "hidden",
+  "editor.scrollbar.horizontal": "hidden",
+  "editor.overviewRulerBorder": false,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.glyphMargin": false,
+  "editor.folding": false,
+  "editor.renderLineHighlight": "none",
+  "editor.guides.indentation": false,
+  "editor.scrollBeyondLastLine": false,
+
+  // ── Estilo tipo nvim ─────────────────────────────────────────────────────
+  "editor.lineNumbers": "relative",
+  "editor.cursorSurroundingLines": 8,
+  "editor.cursorBlinking": "solid",
+  "editor.lineHeight": 1.4,
+
+  // ── Theme (Kanagawa: lo más cercano a tu gentleman-kanagawa-blur) ─────────
+  // Requiere instalar la extensión "Kanagawa" (qufiwefefwoyn.kanagawa)
+  "workbench.colorTheme": "Kanagawa",
+
+  // ── Comportamiento ───────────────────────────────────────────────────────
+  "files.autoSave": "off",
+  "editor.formatOnSave": false
+}

@@ -1,0 +1,48 @@
+// ══════════════════════════════════════════════════════════════════════════
+//  Fusioná estos binds con tu keybindings.json de VSCode
+//  (Ctrl+Shift+P → "Preferences: Open Keyboard Shortcuts (JSON)").
+//
+//  Aquí va SOLO lo que VSCode intercepta antes que Neovim (Ctrl+hjkl, etc.).
+//  El resto de tus keymaps vive en el init.lua dedicado de vscode-neovim.
+//
+//  Nota: el context key "neovim.mode" lo expone vscode-neovim. Si la navegación
+//  no respondiera en tu versión, probá quitar la parte "&& neovim.mode != ..."
+//  del "when".
+// ══════════════════════════════════════════════════════════════════════════
+[
+  // ── Navegación entre editores (tu C-hjkl de tmux-navigation) ──
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.focusLeftGroup",
+    "when": "editorTextFocus && neovim.mode != 'insert'"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusRightGroup",
+    "when": "editorTextFocus && neovim.mode != 'insert'"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.focusBelowGroup",
+    "when": "editorTextFocus && neovim.mode != 'insert'"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.focusAboveGroup",
+    "when": "editorTextFocus && neovim.mode != 'insert'"
+  },
+
+  // ── Ctrl+c como Escape (tu bind), saliendo a modo normal de nvim ──
+  {
+    "key": "ctrl+c",
+    "command": "vscode-neovim.escape",
+    "when": "editorTextFocus && neovim.init"
+  },
+
+  // ── Guardar con Ctrl+s en cualquier modo ──
+  {
+    "key": "ctrl+s",
+    "command": "workbench.action.files.save",
+    "when": "editorTextFocus"
+  }
+]
