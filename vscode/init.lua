@@ -1,23 +1,22 @@
 -- ============================================================================
 -- init.lua DEDICADO para vscode-neovim (NO es tu config de LazyVim).
 --
--- vscode-neovim corre Neovim REAL para la edición. Aquí van:
---   · opciones de edición
---   · tus keymaps de modo normal/visual, incluidos los de LEADER (space ...),
---     que delegan en comandos de VSCode con require("vscode").action().
+-- vscode-neovim corre Neovim REAL para la edición. Aquí van las opciones y tus
+-- keymaps de modo normal/visual, incluidos los de LEADER (space ...), que
+-- delegan en comandos de VSCode.
 --
--- Los atajos de Ctrl/Tab/Esc y los del explorador van en keybindings.json,
--- porque esas teclas las intercepta VSCode antes que Neovim.
+-- IMPORTANTE: usamos vim.fn.VSCodeNotify (API clásica, presente en TODAS las
+-- versiones de la extensión). NO usamos require("vscode") porque en versiones
+-- antiguas ese módulo no existe y haría fallar TODO el init (ningún atajo se
+-- registraría).
 --
--- Instalación: copiá este archivo a una carpeta SEPARADA de tu LazyVim
--- (ej. %LOCALAPPDATA%\nvim-vscode\init.lua) y apuntá vscode-neovim a ella.
+-- Los atajos de Ctrl/Tab/Esc y los del explorador van en keybindings.json.
 -- ============================================================================
 
 if not vim.g.vscode then
   return
 end
 
-local vscode = require("vscode")
 local map = vim.keymap.set
 
 -- ── Leader = espacio (como tu nvim) ─────────────────────────────────────────
@@ -32,16 +31,10 @@ opt.smartcase = true
 opt.timeoutlen = 1000
 opt.scrolloff = 8
 
--- helper: ejecutar un comando de VSCode
+-- helper: ejecutar un comando de VSCode (compatible con toda versión)
 local function vsc(command)
   return function()
-    vscode.action(command)
-  end
-end
--- helper: ejecutar varios comandos de VSCode en orden
-local function vscm(commands)
-  return function()
-    vscode.action("runCommands", { args = { commands = commands } })
+    vim.fn.VSCodeNotify(command)
   end
 end
 
@@ -69,19 +62,12 @@ map("x", "K", vsc("editor.action.moveLinesUpAction"), { desc = "Mover línea arr
 -- ════════════════════════════════════════════════════════════════════════════
 -- VENTANAS / EDITORES
 -- ════════════════════════════════════════════════════════════════════════════
--- Splits (tu space s h / space s v)
 map("n", "<leader>sh", vsc("workbench.action.splitEditorRight"), { desc = "Split derecha" })
 map("n", "<leader>sv", vsc("workbench.action.splitEditorDown"), { desc = "Split abajo" })
-
--- Maximizar / Zen (tu space m / space z)
 map("n", "<leader>m", vsc("workbench.action.toggleMaximizeEditorGroup"), { desc = "Maximizar grupo" })
 map("n", "<leader>z", vsc("workbench.action.toggleZenMode"), { desc = "Modo Zen" })
-
--- Explorador (tu space e) y volver atrás (tu '-')
 map("n", "<leader>e", vsc("workbench.action.toggleSidebarVisibility"), { desc = "Toggle explorador" })
 map("n", "-", vsc("workbench.action.navigateBack"), { desc = "Volver atrás" })
-
--- Listar editores (tu space ,)
 map("n", "<leader>,", vsc("workbench.action.showAllEditors"), { desc = "Todos los editores" })
 
 -- ════════════════════════════════════════════════════════════════════════════
@@ -103,14 +89,13 @@ map("n", "<leader>gd", vsc("editor.action.revealDefinition"), { desc = "Definici
 map("n", "<leader>gr", vsc("editor.action.goToReferences"), { desc = "Referencias" })
 map("n", "<leader>gi", vsc("editor.action.goToImplementation"), { desc = "Implementación" })
 map("n", "K", vsc("editor.action.showHover"), { desc = "Hover" })
--- Atajos estándar de nvim también disponibles
 map("n", "gd", vsc("editor.action.revealDefinition"), { desc = "Definición" })
 map("n", "gr", vsc("editor.action.goToReferences"), { desc = "Referencias" })
 
 -- ════════════════════════════════════════════════════════════════════════════
--- GIT (tu space g g)
+-- GIT (tu space g g) — comando único, sin runCommands
 -- ════════════════════════════════════════════════════════════════════════════
-map("n", "<leader>gg", vscm({ "workbench.view.scm", "workbench.scm.focus" }), { desc = "Git (SCM)" })
+map("n", "<leader>gg", vsc("workbench.view.scm"), { desc = "Git (SCM)" })
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- DEBUG (tu space d *)
