@@ -48,6 +48,25 @@ Después: `Ctrl+Shift+P` → **Developer: Reload Window**.
 > `install.ps1` **no toca tu `settings.json`** (para no pisar tus preferencias).
 > El `settings.json` se fusiona a mano una sola vez (ver Paso 6 más abajo).
 
+### Permisos para ejecutar el `.ps1` (Windows)
+
+La restricción de Windows (ExecutionPolicy) **solo afecta a archivos `.ps1`**, NO
+a los comandos que pegás directo. Por eso el **bloque B (comandos directos)
+siempre funciona sin permisos** — usalo si tenés dudas.
+
+Si querés correr `install.ps1` y te lo bloquea, probá (de menos a más):
+
+```powershell
+# 1) Solo esta ventana de terminal (sin admin)
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+# 2) Permanente para tu usuario (sin admin)
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
+> En un ordenador de empresa, si da *"deshabilitado por una directiva"* (GPO),
+> IT lo bloqueó y no se puede cambiar → usá el **bloque B (comandos directos)**.
+
 ---
 
 ## Requisitos previos
