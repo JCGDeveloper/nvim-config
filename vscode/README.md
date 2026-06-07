@@ -78,18 +78,28 @@ Normalmente es `C:\Program Files\Neovim\bin\nvim.exe`.
 
 ---
 
-## Paso 5 — Colocá el `init.lua` dedicado
+## Paso 5 — Colocá el `init.lua` (ruta por defecto)
 
-vscode-neovim necesita un `init.lua` **propio y separado** de tu LazyVim
-(cargar LazyVim entero lo rompe). Creá la carpeta y copiá el archivo:
+La forma más robusta: poné el `init.lua` en la **carpeta por defecto** de nvim
+en Windows. Así vscode-neovim lo carga solo y NO hay que configurar rutas (que
+es donde más falla la gente).
 
 ```powershell
-mkdir "$env:LOCALAPPDATA\nvim-vscode" -Force
-copy "$env:USERPROFILE\nvim-config\vscode\init.lua" "$env:LOCALAPPDATA\nvim-vscode\init.lua"
+# 1) Verificá que en Windows NO tengas otra config de nvim (debe estar vacío o dar error)
+ls $env:LOCALAPPDATA\nvim
+
+# 2) Copiá el init a la ruta por defecto
+mkdir $env:LOCALAPPDATA\nvim -Force
+copy "$env:USERPROFILE\nvim-config\vscode\init.lua" "$env:LOCALAPPDATA\nvim\init.lua"
 ```
 
-La ruta final queda en `C:\Users\TU_USUARIO\AppData\Local\nvim-vscode\init.lua`.
-Para saber tu usuario exacto: `echo $env:USERNAME`.
+> ⚠️ Si el paso 1 te muestra archivos (tendrías LazyVim también en Windows),
+> **NO sigas**: usarías una carpeta aparte (`nvim-vscode`) y la setting
+> `vscode-neovim.neovimInitVimPaths.win32`. Pero como tu LazyVim vive en WSL, lo
+> normal es que `%LOCALAPPDATA%\nvim` esté vacío y este método funcione directo.
+
+El `init.lua` lleva un guard `if not vim.g.vscode then return end`, así que si
+algún día abrís nvim normal en Windows, no molesta.
 
 ---
 
@@ -98,13 +108,13 @@ Para saber tu usuario exacto: `echo $env:USERNAME`.
 1. En VSCode: `Ctrl+Shift+P` → escribí **"Preferences: Open User Settings (JSON)"** → Enter.
 2. Copiá el contenido de `vscode\settings.json` (de este repo) dentro de tus
    llaves `{ ... }`. Si ya tenés settings, pegá las claves nuevas sin borrar las tuyas.
-3. **Ajustá estas dos rutas** a tu máquina:
+3. **Ajustá la ruta de nvim.exe** a tu máquina:
    - `"vscode-neovim.neovimExecutablePaths.win32"` → la ruta del **paso 3**
-     (ej. `C:\\Program Files\\Neovim\\bin\\nvim.exe`).
-   - `"vscode-neovim.neovimInitVimPaths.win32"` → la ruta del **paso 5**
-     (ej. `C:\\Users\\TU_USUARIO\\AppData\\Local\\nvim-vscode\\init.lua`).
+     (ej. `C:\\Program Files\\Neovim\\bin\\nvim.exe`). En JSON las barras van
+     **dobles**: `C:\\...`.
 
-   > En JSON las barras van **dobles**: `C:\\Users\\...`.
+   > No hace falta configurar `neovimInitVimPaths`: el init va en la ruta por
+   > defecto (paso 5), así que vscode-neovim lo toma solo.
 
 4. Guardá (`Ctrl+S`).
 
@@ -176,15 +186,37 @@ copiar/cortar/pegar · `s` abrir al lado · `Enter` abrir/expandir.
 
 ## Si algo no funciona
 
-- **No entra en modo Neovim** → revisá la ruta de `nvim.exe` (paso 6) y que NO
-  tengas instalada también `vscodevim.vim` (paso 2).
-- **Arranca con error de Lua** → `neovimInitVimPaths` debe apuntar al `init.lua`
-  de `nvim-vscode`, NO al de LazyVim.
-- **`Ctrl+hjkl` no cambia de editor** → en `keybindings.json`, quitá la parte
-  `&& neovim.mode != 'insert'` del `when` (el nombre del context key cambia
-  según la versión de la extensión).
-- **El theme no aparece** → confirmá que instalaste la extensión Kanagawa
-  (paso 4) y que `workbench.colorTheme` dice exactamente `"Kanagawa"`.
+### El modo Vim funciona (j/k/dd) pero los `space` binds NO hacen nada
+Es el problema más común: **tu `init.lua` no se está cargando**, así que nvim
+arranca sin tus keymaps de leader.
+
+1. Confirmá que el archivo existe en la ruta por defecto:
+   ```powershell
+   ls $env:LOCALAPPDATA\nvim\init.lua
+   ```
+   Si no está, repetí el **paso 5**.
+2. Si dejaste `neovimInitVimPaths.win32` en tu `settings.json` con la ruta mal
+   (p. ej. el placeholder `TU_USUARIO` sin reemplazar), **borrá esa línea**: al
+   usar la ruta por defecto no hace falta.
+3. `Ctrl+Shift+P` → **Developer: Reload Window**.
+4. Probá en modo normal: `espacio` + `e` (explorador) o `espacio` + `espacio`
+   (buscar archivos).
+5. ¿Sigue sin ir? Mirá el error real: `Ctrl+Shift+P` → **Output: Focus on
+   Output View** → desplegable de la derecha → **vscode-neovim**. Si hay un
+   error rojo de Lua (p. ej. `module 'vscode' not found`), tu extensión es vieja:
+   actualizá **VSCode Neovim** desde el panel de extensiones.
+
+### No entra en modo Neovim (escribe letras, cursor fino)
+- Revisá la ruta de `nvim.exe` en `settings.json` (paso 6).
+- Asegurate de NO tener también `vscodevim.vim` instalada (paso 2). Chocan.
+
+### `Ctrl+hjkl` / `Tab` no responden en modo normal
+- En `keybindings.json`, quitá la parte `&& neovim.mode == 'normal'` del `when`
+  (el nombre/valor del context key cambia según la versión de la extensión).
+
+### El theme no aparece
+- Confirmá que instalaste la extensión Kanagawa (paso 4) y que
+  `workbench.colorTheme` dice exactamente `"Kanagawa"`.
 
 ---
 
