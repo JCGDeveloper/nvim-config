@@ -36,14 +36,23 @@ powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\nvim-config\vscode\in
 
 Después, en VSCode: `Ctrl+Shift+P` → **Developer: Reload Window**.
 
-### B) Solo actualizar el init.lua (cuando cambian los atajos)
+### B) Aplicar los últimos cambios (init + apariencia + which-key)
+
+**1.** Traé los cambios y actualizá el init (PowerShell):
 
 ```powershell
 git -C "$env:USERPROFILE\nvim-config" pull
 Copy-Item "$env:USERPROFILE\nvim-config\vscode\init.lua" "$env:LOCALAPPDATA\nvim\init.lua" -Force
 ```
 
-Después: `Ctrl+Shift+P` → **Developer: Reload Window**.
+**2.** Actualizá tu `settings.json`: `Ctrl+Shift+P` → **Open User Settings (JSON)**
+→ copiá/actualizá las claves de `vscode/settings.json` de este repo.
+
+**3.** ⚠️ **CERRÁ VSCode por completo y reabrilo** (no "Reload Window"):
+los cambios de barra de título / command center **solo** se aplican con reinicio
+total. El primer arranque clona which-key (unos segundos, necesita git+internet).
+
+**4.** Probá: en modo normal apretá `espacio` → debería salir el popup de which-key.
 
 > `install.ps1` **no toca tu `settings.json`** (para no pisar tus preferencias).
 > El `settings.json` se fusiona a mano una sola vez (ver Paso 6 más abajo).
