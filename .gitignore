@@ -1,0 +1,7 @@
+# OS
+.DS_Store
+
+# Backups locales
+lazy-lock.json.bak
+
+# NOTA: spell/ se versiona COMPLETO a propósito (diccionario personal incluido).
