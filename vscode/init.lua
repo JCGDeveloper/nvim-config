@@ -28,8 +28,23 @@ local opt = vim.opt
 opt.clipboard = "unnamedplus"
 opt.ignorecase = true
 opt.smartcase = true
-opt.timeoutlen = 1000
+opt.timeoutlen = 300 -- popup de which-key rápido (como nvim)
 opt.scrolloff = 8
+
+-- ── which-key: popup de atajos al apretar leader (como tu nvim) ──────────────
+-- Clona which-key.nvim en el packpath nativo (nvim lo carga solo). El primer
+-- arranque necesita git + internet; si falla, no rompe nada (pcall).
+local wkpath = vim.fn.stdpath("data") .. "/site/pack/vscode/start/which-key.nvim"
+if not (vim.uv or vim.loop).fs_stat(wkpath) then
+  pcall(vim.fn.system, {
+    "git", "clone", "--depth=1",
+    "https://github.com/folke/which-key.nvim", wkpath,
+  })
+  pcall(vim.cmd, "packloadall")
+end
+pcall(function()
+  require("which-key").setup({ preset = "classic" })
+end)
 
 -- helper: ejecutar un comando de VSCode (compatible con toda versión)
 local function vsc(command)

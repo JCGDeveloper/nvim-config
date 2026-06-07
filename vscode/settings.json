@@ -33,9 +33,12 @@
   "editor.guides.bracketPairs": "active",
   "editor.guides.indentation": true,
 
-  // ── SIN barra de título ni icono de VSCode (lo más nvim) ─────────────────
+  // ── SIN barra de título, icono, command center ni menú (lo más nvim) ─────
+  // OJO: estos cambios SOLO se aplican cerrando y reabriendo VSCode por
+  // completo (NO con "Reload Window").
   "window.titleBarStyle": "custom",
   "window.customTitleBarVisibility": "never",
+  "window.commandCenter": false,
   "window.menuBarVisibility": "hidden",
 
   // ── UI a cero, statusline visible (tu lualine) ───────────────────────────
