@@ -1,35 +1,27 @@
 {
   // ════════════════════════════════════════════════════════════════════════
-  //  settings.json — VSCode + vscode-neovim, estilo "tu nvim".
+  //  settings.json — VSCode + vscode-neovim, estilo "tu nvim" (al máximo).
   //  Fusioná estas claves con tu settings (Ctrl+Shift+P → Open User Settings JSON).
-  //  Requiere instalar:
-  //    · Extensión Kanagawa  (qufiwefefwoyn.kanagawa)
-  //    · Extensión GlassIt    (s-nlf-fh.glassit)        ← transparencia
-  //    · Fuente JetBrainsMono Nerd Font (en Windows)     ← ver README
+  //  Requiere: extensiones Kanagawa (qufiwefefwoyn.kanagawa),
+  //  GlassIt (s-nlf-fh.glassit) y la fuente JetBrainsMono Nerd Font. Ver README.
   // ════════════════════════════════════════════════════════════════════════
 
   // ── Motor Neovim ─────────────────────────────────────────────────────────
-  "extensions.experimental.affinity": {
-    "asvetliakov.vscode-neovim": 1
-  },
+  "extensions.experimental.affinity": { "asvetliakov.vscode-neovim": 1 },
   "vscode-neovim.neovimExecutablePaths.win32": "C:\\Program Files\\Neovim\\bin\\nvim.exe",
 
-  // ── Theme (Kanagawa, como tu gentleman-kanagawa-blur) ────────────────────
+  // ── Theme + transparencia ────────────────────────────────────────────────
   "workbench.colorTheme": "Kanagawa",
+  "glassit.alpha": 245, // 255 = opaco. Ajustá con Ctrl+Alt+Z / Ctrl+Alt+C.
 
-  // ── Transparencia (extensión GlassIt) ────────────────────────────────────
-  // 0 = invisible, 255 = opaco. 245 = transparencia muy sutil. Bajá a ~235/230
-  // si querés más; ajustá al vuelo con Ctrl+Alt+Z (opaco) / Ctrl+Alt+C (transparente).
-  "glassit.alpha": 245,
-
-  // ── Fuente (JetBrainsMono Nerd Font + ligaduras + iconos) ────────────────
+  // ── Fuente (JetBrainsMono Nerd Font + ligaduras) ─────────────────────────
   "editor.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrains Mono', Consolas, monospace",
   "editor.fontLigatures": true,
   "editor.fontSize": 15,
   "editor.lineHeight": 1.5,
   "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font'",
 
-  // ── Cursor animado (como smear-cursor) ───────────────────────────────────
+  // ── Cursor animado (smear) + scroll suave ────────────────────────────────
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorBlinking": "expand",
   "editor.smoothScrolling": true,
@@ -41,7 +33,12 @@
   "editor.guides.bracketPairs": "active",
   "editor.guides.indentation": true,
 
-  // ── UI a cero, pero CON statusline (tu lualine va abajo) ─────────────────
+  // ── SIN barra de título ni icono de VSCode (lo más nvim) ─────────────────
+  "window.titleBarStyle": "custom",
+  "window.customTitleBarVisibility": "never",
+  "window.menuBarVisibility": "hidden",
+
+  // ── UI a cero, statusline visible (tu lualine) ───────────────────────────
   "workbench.activityBar.location": "hidden",
   "workbench.statusBar.visible": true,
   "workbench.editor.showTabs": "none",
@@ -50,7 +47,6 @@
   "workbench.tips.enabled": false,
   "workbench.startupEditor": "none",
   "breadcrumbs.enabled": false,
-  "window.menuBarVisibility": "toggle",
   "editor.minimap.enabled": false,
   "editor.scrollbar.vertical": "hidden",
   "editor.scrollbar.horizontal": "hidden",
@@ -60,10 +56,37 @@
   "editor.renderLineHighlight": "none",
   "editor.scrollBeyondLastLine": false,
 
+  // ── Aire / padding (que respire como tu nvim) ────────────────────────────
+  "editor.padding.top": 18,
+  "editor.padding.bottom": 18,
+
+  // ── Explorador minimalista (estilo oil/neo-tree) ─────────────────────────
+  "workbench.tree.indent": 14,
+  "workbench.tree.renderIndentGuides": "none",
+  "explorer.compactFolders": false,
+  "explorer.decorations.badges": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+
   // ── Estilo tipo nvim ─────────────────────────────────────────────────────
   "editor.lineNumbers": "relative",
   "editor.cursorSurroundingLines": 8,
-  "window.titleBarStyle": "custom",
+
+  // ── Colores finos (kanagawa-like, bordes invisibles) ─────────────────────
+  "workbench.colorCustomizations": {
+    "editorCursor.foreground": "#C8C093",
+    "editorLineNumber.foreground": "#54546D",
+    "editorLineNumber.activeForeground": "#C8C093",
+    "editor.selectionBackground": "#2D4F6755",
+    "editor.lineHighlightBorder": "#00000000",
+    "focusBorder": "#00000000",
+    "editorGroup.border": "#00000000",
+    "sideBar.border": "#00000000",
+    "statusBar.border": "#00000000",
+    "panel.border": "#00000000",
+    "tab.border": "#00000000",
+    "editorWidget.border": "#00000000"
+  },
 
   // ── Comportamiento ───────────────────────────────────────────────────────
   "files.autoSave": "off",

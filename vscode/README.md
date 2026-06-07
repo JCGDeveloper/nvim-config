@@ -254,16 +254,35 @@ Todo se ajusta en tu `settings.json`:
 
 | Quiero… | Clave | Valor |
 |---------|-------|-------|
-| Más/menos transparencia | `glassit.alpha` | `255` = opaco, `200` = muy transparente. Probá `215`–`235`. |
-| Subir/bajar la transparencia al vuelo | (atajos GlassIt) | `Ctrl+Alt+Z` (más opaco) / `Ctrl+Alt+C` (más transparente) |
-| Tamaño de letra | `editor.fontSize` | `15` por defecto |
+| Más/menos transparencia | `glassit.alpha` | `255` = opaco, `230` = más transparente. O al vuelo: `Ctrl+Alt+Z` / `Ctrl+Alt+C` |
+| Tamaño de letra | `editor.fontSize` | `15` |
 | Altura de línea | `editor.lineHeight` | `1.5` |
 | Cursor sin animación | `editor.cursorSmoothCaretAnimation` | `"off"` |
+| Más/menos aire | `editor.padding.top` / `.bottom` | `18` |
+| **Ver el icono de VSCode / barra de título** | `window.customTitleBarVisibility` | `"auto"` (la vuelve a mostrar) |
+| Ver la barra de iconos izquierda | `workbench.activityBar.location` | `"default"` |
+| Ver pestañas | `workbench.editor.showTabs` | `"multiple"` |
+| Ver el menú (File/Edit) | `window.menuBarVisibility` | `"classic"` |
 | Ocultar la statusline (lualine) | `workbench.statusBar.visible` | `false` |
-| Sin guías de indentación | `editor.guides.indentation` | `false` |
+
+> **Barra de título oculta:** con `window.customTitleBarVisibility: "never"` no
+> hay botones de minimizar/cerrar (lo más nvim). Para cerrar la ventana: `Alt+F4`.
+> Si te molesta, ponelo en `"auto"` y vuelve.
 
 > **GlassIt** hace transparente **toda la ventana** (se ve lo que haya detrás),
 > no es blur selectivo como tu nvim — pero es lo más cercano y estable.
+
+### which-key (el único que NO metí, y por qué)
+
+Tu nvim muestra un popup de atajos al apretar espacio (which-key). En VSCode
+eso lo daría la extensión *VSpaceCode WhichKey*, **pero choca con vscode-neovim**:
+el `espacio` en modo normal lo maneja Neovim (es tu leader), así que un
+which-key de VSCode tendría que robarle esa tecla y **te rompería todos tus
+`space` binds**. Por eso lo dejé afuera: no vale romper lo que ya funciona.
+
+> Alternativa fiel (avanzada, pendiente): instalar `which-key.nvim` dentro del
+> `init.lua` dedicado de vscode-neovim. Requiere bootstrapear un gestor de
+> plugins en ese init. Si lo querés, lo montamos aparte.
 
 ## Si algo no funciona
 
