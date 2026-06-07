@@ -1,48 +1,56 @@
 // ══════════════════════════════════════════════════════════════════════════
-//  Fusioná estos binds con tu keybindings.json de VSCode
-//  (Ctrl+Shift+P → "Preferences: Open Keyboard Shortcuts (JSON)").
+//  keybindings.json para vscode-neovim (migrado desde tu config de VSCodeVim).
 //
-//  Aquí va SOLO lo que VSCode intercepta antes que Neovim (Ctrl+hjkl, etc.).
-//  El resto de tus keymaps vive en el init.lua dedicado de vscode-neovim.
+//  Aquí va SOLO lo que VSCode intercepta antes que Neovim: Ctrl/Tab/Esc y los
+//  atajos de letra DENTRO del explorador. Tus atajos de leader (space ...)
+//  viven en el init.lua dedicado.
 //
-//  Nota: el context key "neovim.mode" lo expone vscode-neovim. Si la navegación
-//  no respondiera en tu versión, probá quitar la parte "&& neovim.mode != ..."
-//  del "when".
+//  Cambio clave respecto a tu versión: el context key de modo pasó de
+//  'vim.mode' (VSCodeVim) a 'neovim.mode' (vscode-neovim). Si la navegación no
+//  respondiera en tu versión, quitá la parte "&& neovim.mode == 'normal'".
 // ══════════════════════════════════════════════════════════════════════════
 [
-  // ── Navegación entre editores (tu C-hjkl de tmux-navigation) ──
-  {
-    "key": "ctrl+h",
-    "command": "workbench.action.focusLeftGroup",
-    "when": "editorTextFocus && neovim.mode != 'insert'"
-  },
-  {
-    "key": "ctrl+l",
-    "command": "workbench.action.focusRightGroup",
-    "when": "editorTextFocus && neovim.mode != 'insert'"
-  },
-  {
-    "key": "ctrl+j",
-    "command": "workbench.action.focusBelowGroup",
-    "when": "editorTextFocus && neovim.mode != 'insert'"
-  },
-  {
-    "key": "ctrl+k",
-    "command": "workbench.action.focusAboveGroup",
-    "when": "editorTextFocus && neovim.mode != 'insert'"
-  },
+  // ── Navegación entre ventanas (tu Ctrl+hjkl tmux) ──
+  { "key": "ctrl+h", "command": "workbench.action.navigateLeft",  "when": "editorTextFocus && neovim.mode == 'normal'" },
+  { "key": "ctrl+l", "command": "workbench.action.navigateRight", "when": "editorTextFocus && neovim.mode == 'normal'" },
+  { "key": "ctrl+k", "command": "workbench.action.navigateUp",    "when": "editorTextFocus && neovim.mode == 'normal'" },
+  { "key": "ctrl+j", "command": "workbench.action.navigateDown",  "when": "editorTextFocus && neovim.mode == 'normal'" },
 
-  // ── Ctrl+c como Escape (tu bind), saliendo a modo normal de nvim ──
-  {
-    "key": "ctrl+c",
-    "command": "vscode-neovim.escape",
-    "when": "editorTextFocus && neovim.init"
-  },
+  // ── Mover editor entre grupos (tu Ctrl+Shift+hjkl) ──
+  { "key": "ctrl+shift+h", "command": "workbench.action.moveEditorToLeftGroup",  "when": "neovim.mode == 'normal'" },
+  { "key": "ctrl+shift+l", "command": "workbench.action.moveEditorToRightGroup", "when": "neovim.mode == 'normal'" },
+  { "key": "ctrl+shift+k", "command": "workbench.action.moveEditorToAboveGroup", "when": "neovim.mode == 'normal'" },
+  { "key": "ctrl+shift+j", "command": "workbench.action.moveEditorToBelowGroup", "when": "neovim.mode == 'normal'" },
 
-  // ── Guardar con Ctrl+s en cualquier modo ──
-  {
-    "key": "ctrl+s",
-    "command": "workbench.action.files.save",
-    "when": "editorTextFocus"
-  }
+  // ── Redimensionar ventanas (tu Ctrl+Alt+hjkl) ──
+  { "key": "ctrl+alt+h", "command": "workbench.action.decreaseViewWidth",  "when": "neovim.mode == 'normal' && !inputFocus" },
+  { "key": "ctrl+alt+l", "command": "workbench.action.increaseViewWidth",  "when": "neovim.mode == 'normal' && !inputFocus" },
+  { "key": "ctrl+alt+k", "command": "workbench.action.decreaseViewHeight", "when": "neovim.mode == 'normal' && !inputFocus" },
+  { "key": "ctrl+alt+j", "command": "workbench.action.increaseViewHeight", "when": "neovim.mode == 'normal' && !inputFocus" },
+
+  // ── Pestañas dentro del grupo (tu Tab / Shift+Tab) ──
+  { "key": "tab",       "command": "workbench.action.nextEditorInGroup",     "when": "editorTextFocus && neovim.mode == 'normal'" },
+  { "key": "shift+tab", "command": "workbench.action.previousEditorInGroup", "when": "editorTextFocus && neovim.mode == 'normal'" },
+
+  // ── Multicursor (tu Ctrl+n) ──
+  { "key": "ctrl+n", "command": "editor.action.addSelectionToNextFindMatch", "when": "editorTextFocus" },
+
+  // ── Aceptar sugerencia IA (tu Alt+Enter) ──
+  { "key": "alt+enter", "command": "editor.action.inlineSuggest.commit", "when": "inlineSuggestionVisible" },
+
+  // ── Salir del sidebar con Esc / Ctrl+l (tus parches) ──
+  { "key": "escape", "command": "workbench.action.toggleSidebarVisibility",  "when": "sideBarVisible && sideBarFocus" },
+  { "key": "ctrl+l", "command": "workbench.action.focusActiveEditorGroup",   "when": "sideBarVisible && sideBarFocus" },
+
+  // ── Atajos dentro del explorador de archivos (tus r/c/p/x/d/a/s) ──
+  { "key": "r",       "command": "renameFile",            "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
+  { "key": "c",       "command": "filesExplorer.copy",    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
+  { "key": "p",       "command": "filesExplorer.paste",   "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
+  { "key": "x",       "command": "filesExplorer.cut",     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
+  { "key": "d",       "command": "deleteFile",            "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
+  { "key": "a",       "command": "explorer.newFile",      "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
+  { "key": "s",       "command": "explorer.openToSide",   "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
+  { "key": "shift+s", "command": "runCommands", "args": { "commands": ["workbench.action.splitEditorDown", "explorer.openAndPassFocus", "workbench.action.closeOtherEditors"] }, "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
+  { "key": "enter",   "command": "explorer.openAndPassFocus", "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceIsFolder && !inputFocus" },
+  { "key": "enter",   "command": "list.toggleExpand",         "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && explorerResourceIsFolder && !inputFocus" }
 ]

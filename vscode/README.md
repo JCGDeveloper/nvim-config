@@ -129,23 +129,48 @@ Cerrá y abrí VSCode. Abrí cualquier archivo. Deberías ver:
 
 ---
 
-## Tus binds (replicados)
+## Tus binds (migrados desde VSCodeVim)
 
+`<leader>` = barra espaciadora. Los de leader están en `init.lua`; los de
+Ctrl/Tab/Esc y los del explorador en `keybindings.json`.
+
+**Ventanas / editores**
+| Bind | Acción |
+|------|--------|
+| `<C-h/j/k/l>` | Moverse entre ventanas |
+| `<C-S-h/j/k/l>` | Mover editor de grupo |
+| `<C-A-h/j/k/l>` | Redimensionar |
+| `Tab` / `S-Tab` | Editor siguiente / anterior |
+| `<leader>sh` / `<leader>sv` | Split derecha / abajo |
+| `<leader>m` / `<leader>z` | Maximizar / Zen |
+| `<leader>e` | Toggle explorador |
+| `-` | Volver atrás |
+| `<leader>,` | Todos los editores |
+
+**Buffers / búsqueda / código**
+| Bind | Acción |
+|------|--------|
+| `<leader>bd` / `<leader>bo` | Cerrar editor / cerrar otros |
+| `<leader><space>` | Buscar archivos |
+| `<leader>sg` | Grep en el proyecto |
+| `<leader>gd` `<leader>gr` `<leader>gi` / `gd` `gr` | Definición / referencias / implementación |
+| `K` | Hover |
+| `<leader>ca` `<leader>cr` `<leader>cs` | Code action / rename / ir a símbolo |
+| `<C-n>` | Multicursor (siguiente coincidencia) |
+
+**Edición / git / debug**
 | Bind | Acción |
 |------|--------|
 | `<C-c>` | Escape a normal |
 | `<C-b>` (insert) | Borrar hasta fin de palabra |
 | `<C-s>` | Guardar |
-| `-` | Explorador |
-| `<C-h/j/k/l>` | Moverse entre editores (tu tmux-nav) |
-| `<leader>bq` | Cerrar los demás editores |
-| `<leader><space>` / `<leader>ff` | Buscar archivos |
-| `<leader>sg` / `<leader>fg` | Grep en el proyecto |
+| `J` / `K` (visual) | Mover línea abajo / arriba |
 | `<leader>md` | Borrar todas las marcas |
-| `gd` `gr` `K` `<leader>cr` `<leader>ca` `<leader>cf` | Definición / referencias / hover / rename / code action / formatear |
-| `]d` `[d` | Diagnóstico siguiente / anterior |
+| `<leader>gg` | Git (panel SCM) |
+| `<leader>da/dt/do/db/de/dc` | Debug: iniciar/parar/step/breakpoint/hover/continuar |
 
-(`<leader>` es la barra espaciadora.)
+**En el explorador:** `r` renombrar · `a` nuevo archivo · `d` borrar · `c/x/p`
+copiar/cortar/pegar · `s` abrir al lado · `Enter` abrir/expandir.
 
 ---
 
