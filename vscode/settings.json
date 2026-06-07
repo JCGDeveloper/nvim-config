@@ -18,8 +18,9 @@
   "workbench.colorTheme": "Kanagawa",
 
   // ── Transparencia (extensión GlassIt) ────────────────────────────────────
-  // 0 = invisible, 255 = opaco. ~230 = transparencia sutil tipo blur.
-  "glassit.alpha": 230,
+  // 0 = invisible, 255 = opaco. 245 = transparencia muy sutil. Bajá a ~235/230
+  // si querés más; ajustá al vuelo con Ctrl+Alt+Z (opaco) / Ctrl+Alt+C (transparente).
+  "glassit.alpha": 245,
 
   // ── Fuente (JetBrainsMono Nerd Font + ligaduras + iconos) ────────────────
   "editor.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrains Mono', Consolas, monospace",
