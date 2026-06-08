@@ -137,6 +137,8 @@ map("n", "gP", vsc("closeReferenceSearch"), { desc = "Cerrar peek" })
 -- ════════════════════════════════════════════════════════════════════════════
 map("n", "<leader>gb", vsc("gitlens.toggleLineBlame"), { desc = "Git blame" })
 map("n", "<leader>go", vsc("gitlens.openFileOnRemote"), { desc = "Abrir en remoto" })
+map("n", "<leader>gh", vsc("gitlens.showQuickFileHistory"), { desc = "Historial del archivo" })
+map("n", "<leader>gl", vsc("gitlens.showQuickCommitFileDetails"), { desc = "Detalle del commit de la línea" })
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- DIAGNÓSTICOS (como trouble) + outline (como symbols-outline)
