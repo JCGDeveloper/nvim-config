@@ -91,8 +91,11 @@ map("n", "<leader>,", vsc("workbench.action.showAllEditors"), { desc = "Todos lo
 map("n", "<leader>bd", vsc("workbench.action.closeActiveEditor"), { desc = "Cerrar editor" })
 map("n", "<leader>bo", vsc("workbench.action.closeOtherEditors"), { desc = "Cerrar otros" })
 map("n", "<leader><space>", vsc("workbench.action.quickOpen"), { desc = "Buscar archivos" })
-map("n", "<leader>sg", vsc("workbench.action.findInFiles"), { desc = "Grep proyecto" })
-map("v", "<leader>sg", vsc("workbench.action.findInFiles"), { desc = "Grep selección" })
+-- Quick Search: buscador navegable con teclado (flechas + Enter), tipo telescope
+map("n", "<leader>sg", vsc("workbench.action.quickTextSearch"), { desc = "Buscar texto (teclado)" })
+map("v", "<leader>sg", vsc("workbench.action.quickTextSearch"), { desc = "Buscar texto (teclado)" })
+-- Panel clásico de Find in Files (por si querés reemplazar/regex avanzado)
+map("n", "<leader>sG", vsc("workbench.action.findInFiles"), { desc = "Buscar en archivos (panel)" })
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- CÓDIGO / LSP (tu space c *, space g *, K)
