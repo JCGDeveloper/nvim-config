@@ -97,5 +97,10 @@
 
   // ── Comportamiento ───────────────────────────────────────────────────────
   "files.autoSave": "off",
-  "editor.formatOnSave": false
+  "editor.formatOnSave": true,        // formatear al guardar (como conform en nvim)
+  "editor.inlayHints.enabled": "off", // como en tu config (inlay hints desactivados)
+
+  // ── Todo Tree (resaltar TODO/FIX/HACK, como todo-comments) ───────────────
+  "todo-tree.highlights.enabled": true,
+  "todo-tree.general.tags": ["TODO", "FIX", "FIXME", "HACK", "BUG", "NOTE", "PERF"]
 }

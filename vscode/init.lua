@@ -123,6 +123,28 @@ map("n", "<leader>de", vsc("editor.debug.action.showDebugHover"), { desc = "Debu
 map("n", "<leader>dc", vsc("workbench.action.debug.continue"), { desc = "Debug: continuar" })
 
 -- ════════════════════════════════════════════════════════════════════════════
+-- PEEK / goto-preview (como tu goto-preview.nvim: gp*)
+-- ════════════════════════════════════════════════════════════════════════════
+map("n", "gpd", vsc("editor.action.peekDefinition"), { desc = "Peek definición" })
+map("n", "gpD", vsc("editor.action.peekDeclaration"), { desc = "Peek declaración" })
+map("n", "gpi", vsc("editor.action.peekImplementation"), { desc = "Peek implementación" })
+map("n", "gpy", vsc("editor.action.peekTypeDefinition"), { desc = "Peek tipo" })
+map("n", "gpr", vsc("editor.action.referenceSearch.trigger"), { desc = "Peek referencias" })
+map("n", "gP", vsc("closeReferenceSearch"), { desc = "Cerrar peek" })
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- GIT (como tu git.nvim: blame + browse) — requiere GitLens
+-- ════════════════════════════════════════════════════════════════════════════
+map("n", "<leader>gb", vsc("gitlens.toggleLineBlame"), { desc = "Git blame" })
+map("n", "<leader>go", vsc("gitlens.openFileOnRemote"), { desc = "Abrir en remoto" })
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- DIAGNÓSTICOS (como trouble) + outline (como symbols-outline)
+-- ════════════════════════════════════════════════════════════════════════════
+map("n", "<leader>xx", vsc("workbench.actions.view.problems"), { desc = "Diagnósticos (Problems)" })
+map("n", "<leader>co", vsc("outline.focus"), { desc = "Outline de símbolos" })
+
+-- ════════════════════════════════════════════════════════════════════════════
 -- GUARDAR (tu <C-s>)
 -- ════════════════════════════════════════════════════════════════════════════
 map({ "n", "i", "v" }, "<C-s>", vsc("workbench.action.files.save"), { desc = "Guardar" })
