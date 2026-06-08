@@ -50,7 +50,9 @@
   "workbench.editor.editorActionsLocation": "hidden",
   "workbench.tips.enabled": false,
   "workbench.startupEditor": "welcomePage", // pantalla de inicio (lo más cercano al dashboard de LazyVim)
-  "breadcrumbs.enabled": false,
+  "breadcrumbs.enabled": true, // nombre del archivo + ruta arriba (no hay pestañas)
+  "breadcrumbs.icons": true,
+  "breadcrumbs.symbolPath": "last",
   "editor.minimap.enabled": false,
   "editor.scrollbar.vertical": "hidden",
   "editor.scrollbar.horizontal": "hidden",
