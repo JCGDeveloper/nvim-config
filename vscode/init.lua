@@ -143,6 +143,7 @@ map("n", "<leader>go", vsc("gitlens.openFileOnRemote"), { desc = "Abrir en remot
 -- ════════════════════════════════════════════════════════════════════════════
 map("n", "<leader>xx", vsc("workbench.actions.view.problems"), { desc = "Diagnósticos (Problems)" })
 map("n", "<leader>co", vsc("outline.focus"), { desc = "Outline de símbolos" })
+map("n", "<leader>st", vsc("workbench.view.extension.todo-tree-container"), { desc = "Lista de TODOs" })
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- GUARDAR (tu <C-s>)
