@@ -135,10 +135,15 @@ map("n", "gP", vsc("closeReferenceSearch"), { desc = "Cerrar peek" })
 -- ════════════════════════════════════════════════════════════════════════════
 -- GIT (como tu git.nvim: blame + browse) — requiere GitLens
 -- ════════════════════════════════════════════════════════════════════════════
-map("n", "<leader>gb", vsc("gitlens.toggleLineBlame"), { desc = "Git blame" })
-map("n", "<leader>go", vsc("gitlens.openFileOnRemote"), { desc = "Abrir en remoto" })
+map("n", "<leader>gb", vsc("gitlens.toggleLineBlame"), { desc = "Blame de la línea" })
+map("n", "<leader>gB", vsc("gitlens.toggleFileBlame"), { desc = "Blame de todo el archivo" })
 map("n", "<leader>gh", vsc("gitlens.showQuickFileHistory"), { desc = "Historial del archivo" })
+map("n", "<leader>gL", vsc("gitlens.showQuickLineHistory"), { desc = "Historial de la línea" })
 map("n", "<leader>gl", vsc("gitlens.showQuickCommitFileDetails"), { desc = "Detalle del commit de la línea" })
+map("n", "<leader>gc", vsc("gitlens.diffWithPrevious"), { desc = "Comparar con versión anterior" })
+map("n", "<leader>go", vsc("gitlens.openFileOnRemote"), { desc = "Abrir en remoto" })
+map("n", "<leader>gy", vsc("gitlens.copyRemoteFileUrlToClipboard"), { desc = "Copiar link remoto" })
+map("n", "<leader>gv", vsc("gitlens.showGraph"), { desc = "Grafo de commits (GitLens)" })
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- DIAGNÓSTICOS (como trouble) + outline (como symbols-outline)
