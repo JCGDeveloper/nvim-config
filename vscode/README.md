@@ -78,6 +78,57 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 ---
 
+## 🛠️ Instalación 100% MANUAL (sin ejecutar scripts)
+
+Si tu empresa bloquea la ejecución de scripts (`.ps1`), seguí esto: todo por la
+**interfaz de VSCode** y descargas manuales. (Nota: los comandos sueltos pegados
+en la terminal NO son scripts; pero acá los evitamos donde se puede.)
+
+### 1. Extensiones (por la interfaz)
+`Ctrl+Shift+X` → buscá cada una por su ID e **Install**:
+- `asvetliakov.vscode-neovim`
+- `qufiwefefwoyn.kanagawa`
+- `s-nlf-fh.glassit`
+- `pkief.material-icon-theme`
+- `Gruntfuggly.todo-tree`
+- `eamodio.gitlens`
+
+### 2. Neovim en Windows
+- Si podés: `winget install Neovim.Neovim` (es un comando, no un script).
+- Si winget está bloqueado: descargá **`nvim-win64.zip`** de
+  https://github.com/neovim/neovim/releases/latest , descomprimilo en una carpeta
+  tuya (ej. `C:\Users\TU_USUARIO\nvim`) y anotá la ruta de `bin\nvim.exe`.
+
+### 3. Fuente JetBrainsMono Nerd Font
+Descargá `JetBrainsMono.zip` de https://www.nerdfonts.com/font-downloads →
+seleccioná los `.ttf` → click derecho → **Instalar**.
+
+### 4. El `init.lua` (por la interfaz, sin comandos)
+1. Abrí el archivo `vscode/init.lua` de este repo en VSCode y **copiá todo** (`Ctrl+A`, `Ctrl+C`).
+2. `Ctrl+Shift+P` → **Crear archivo nuevo** (o `Ctrl+N`), pegá el contenido y
+   guardalo (`Ctrl+S`) en esta ruta exacta:
+   `C:\Users\TU_USUARIO\AppData\Local\nvim\init.lua`
+   (en el diálogo de guardar, pegá `%LOCALAPPDATA%\nvim` en la barra de ruta y
+   poné nombre `init.lua`).
+
+### 5. `settings.json` (por la interfaz)
+`Ctrl+Shift+P` → **Open User Settings (JSON)** → copiá/actualizá las claves de
+`vscode/settings.json` de este repo. Ajustá la ruta de `nvim.exe` (paso 2).
+
+### 6. `keybindings.json` (por la interfaz)
+`Ctrl+Shift+P` → **Open Keyboard Shortcuts (JSON)** → pegá el contenido de
+`vscode/keybindings.json`.
+
+### 7. Reiniciá
+Cerrá VSCode **por completo** y reabrilo (para la barra de título; el resto toma
+con Reload Window).
+
+> Para **actualizar** más adelante sin scripts: abrí `vscode/init.lua` del repo
+> (botón Sync/Pull de VSCode en el repo, o re-descargá), copiá y pegá de nuevo en
+> `%LOCALAPPDATA%\nvim\init.lua`. Lo mismo con settings/keybindings.
+
+---
+
 ## Requisitos previos
 
 - Windows 10/11 con VSCode instalado.
