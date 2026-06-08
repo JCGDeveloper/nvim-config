@@ -10,8 +10,9 @@
   "extensions.experimental.affinity": { "asvetliakov.vscode-neovim": 1 },
   "vscode-neovim.neovimExecutablePaths.win32": "C:\\Program Files\\Neovim\\bin\\nvim.exe",
 
-  // ── Theme + transparencia ────────────────────────────────────────────────
+  // ── Theme + iconos + transparencia ───────────────────────────────────────
   "workbench.colorTheme": "Kanagawa",
+  "workbench.iconTheme": "material-icon-theme", // iconos de archivos (como nvim-web-devicons)
   "glassit.alpha": 245, // 255 = opaco. Ajustá con Ctrl+Alt+Z / Ctrl+Alt+C.
 
   // ── Fuente (JetBrainsMono Nerd Font + ligaduras) ─────────────────────────
@@ -48,7 +49,7 @@
   "workbench.layoutControl.enabled": false,
   "workbench.editor.editorActionsLocation": "hidden",
   "workbench.tips.enabled": false,
-  "workbench.startupEditor": "none",
+  "workbench.startupEditor": "welcomePage", // pantalla de inicio (lo más cercano al dashboard de LazyVim)
   "breadcrumbs.enabled": false,
   "editor.minimap.enabled": false,
   "editor.scrollbar.vertical": "hidden",
@@ -56,7 +57,7 @@
   "editor.overviewRulerBorder": false,
   "editor.hideCursorInOverviewRuler": true,
   "editor.glyphMargin": false,
-  "editor.renderLineHighlight": "none",
+  "editor.renderLineHighlight": "all", // resalta la línea actual (cursorline)
   "editor.scrollBeyondLastLine": false,
 
   // ── Aire / padding (que respire como tu nvim) ────────────────────────────
@@ -81,6 +82,7 @@
     "editorLineNumber.foreground": "#54546D",
     "editorLineNumber.activeForeground": "#C8C093",
     "editor.selectionBackground": "#2D4F6755",
+    "editor.lineHighlightBackground": "#2A2A3766",
     "editor.lineHighlightBorder": "#00000000",
     "focusBorder": "#00000000",
     "editorGroup.border": "#00000000",

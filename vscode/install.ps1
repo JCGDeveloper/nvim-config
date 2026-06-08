@@ -48,7 +48,7 @@ Ok "Repo listo: $repo"
 
 # 2.5) Extensiones de VSCode ------------------------------------------------
 if (Get-Command code -ErrorAction SilentlyContinue) {
-  foreach ($ext in @("asvetliakov.vscode-neovim", "qufiwefefwoyn.kanagawa", "s-nlf-fh.glassit")) {
+  foreach ($ext in @("asvetliakov.vscode-neovim", "qufiwefefwoyn.kanagawa", "s-nlf-fh.glassit", "pkief.material-icon-theme")) {
     Info "Instalando extension $ext..."
     code --install-extension $ext --force | Out-Null
   }
