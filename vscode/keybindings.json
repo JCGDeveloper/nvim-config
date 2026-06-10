@@ -38,6 +38,9 @@
   // ── Aceptar sugerencia IA (tu Alt+Enter) ──
   { "key": "alt+enter", "command": "editor.action.inlineSuggest.commit", "when": "inlineSuggestionVisible" },
 
+  // ── Salir del panel de chat IA (sidebar secundario) con Ctrl+l ──
+  { "key": "ctrl+l", "command": "workbench.action.focusActiveEditorGroup", "when": "auxiliaryBarFocus" },
+
   // ── Salir del sidebar con Esc / Ctrl+l (tus parches) ──
   { "key": "escape", "command": "workbench.action.toggleSidebarVisibility",  "when": "sideBarVisible && sideBarFocus" },
   { "key": "ctrl+l", "command": "workbench.action.focusActiveEditorGroup",   "when": "sideBarVisible && sideBarFocus" },
@@ -52,5 +55,4 @@
   { "key": "s",       "command": "explorer.openToSide",   "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
   { "key": "shift+s", "command": "runCommands", "args": { "commands": ["workbench.action.splitEditorDown", "explorer.openAndPassFocus", "workbench.action.closeOtherEditors"] }, "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
   { "key": "enter",   "command": "explorer.openAndPassFocus", "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceIsFolder && !inputFocus" },
-  { "key": "enter",   "command": "list.toggleExpand",         "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && explorerResourceIsFolder && !inputFocus" }
-]
+  

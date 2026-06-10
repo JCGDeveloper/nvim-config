@@ -156,6 +156,9 @@ map("n", "<leader>co", vsc("outline.focus"), { desc = "Outline de símbolos" })
 map("n", "<leader>st", vsc("workbench.view.extension.todo-tree-container"), { desc = "Lista de TODOs" })
 
 -- ════════════════════════════════════════════════════════════════════════════
--- GUARDAR (tu <C-s>)
--- ════════════════════════════════════════════════════════════════════════════
-map({ "n", "i", "v" }, "<C-s>", vsc("workbench.action.files.save"), { desc = "Guardar" })
+-- IA: Copilot Chat + Claude Code (space a *)
+--
+-- Copilot Chat vive en el sidebar secundario (derecha). Claude Code tiene
+-- además sus atajos nativos: Ctrl+Esc (foco editor <-> Claude) y Alt+K
+-- (insertar @-mention de la selección).
+-- ══════════════════════════════════
