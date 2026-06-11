@@ -53,6 +53,17 @@ local function vsc(command)
   end
 end
 
+-- helper SÍNCRONO: para comandos que abren un picker/quick input (quickOpen,
+-- quickTextSearch...). VSCodeNotify es async: el picker tarda en robar el foco
+-- y lo que tecleás justo después cae en el editor en modo normal (una 'i' te
+-- mete en inserción, y "espacio + letra" dispara mappings de leader, p.ej.
+-- espacio+m des-maximiza). VSCodeCall espera a que VSCode procese el comando.
+local function vscall(command)
+  return function()
+    vim.fn.VSCodeCall(command)
+  end
+end
+
 -- ════════════════════════════════════════════════════════════════════════════
 -- EDICIÓN PURA (idéntico a tu nvim)
 -- ════════════════════════════════════════════════════════════════════════════
@@ -83,17 +94,18 @@ map("n", "<leader>m", vsc("workbench.action.toggleMaximizeEditorGroup"), { desc 
 map("n", "<leader>z", vsc("workbench.action.toggleZenMode"), { desc = "Modo Zen" })
 map("n", "<leader>e", vsc("workbench.action.toggleSidebarVisibility"), { desc = "Toggle explorador" })
 map("n", "-", vsc("workbench.action.navigateBack"), { desc = "Volver atrás" })
-map("n", "<leader>,", vsc("workbench.action.showAllEditors"), { desc = "Todos los editores" })
+map("n", "<leader>,", vscall("workbench.action.showAllEditors"), { desc = "Todos los editores" })
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- BUFFERS / BÚSQUEDA
 -- ════════════════════════════════════════════════════════════════════════════
 map("n", "<leader>bd", vsc("workbench.action.closeActiveEditor"), { desc = "Cerrar editor" })
 map("n", "<leader>bo", vsc("workbench.action.closeOtherEditors"), { desc = "Cerrar otros" })
-map("n", "<leader><space>", vsc("workbench.action.quickOpen"), { desc = "Buscar archivos" })
+map("n", "<leader><space>", vscall("workbench.action.quickOpen"), { desc = "Buscar archivos" })
 -- Quick Search: buscador navegable con teclado (flechas + Enter), tipo telescope
-map("n", "<leader>sg", vsc("workbench.action.quickTextSearch"), { desc = "Buscar texto (teclado)" })
-map("v", "<leader>sg", vsc("workbench.action.quickTextSearch"), { desc = "Buscar texto (teclado)" })
+-- OJO: vscall (síncrono), no vsc — ver comentario del helper
+map("n", "<leader>sg", vscall("workbench.action.quickTextSearch"), { desc = "Buscar texto (teclado)" })
+map("v", "<leader>sg", vscall("workbench.action.quickTextSearch"), { desc = "Buscar texto (teclado)" })
 -- Panel clásico de Find in Files (por si querés reemplazar/regex avanzado)
 map("n", "<leader>sG", vsc("workbench.action.findInFiles"), { desc = "Buscar en archivos (panel)" })
 
@@ -102,7 +114,7 @@ map("n", "<leader>sG", vsc("workbench.action.findInFiles"), { desc = "Buscar en 
 -- ════════════════════════════════════════════════════════════════════════════
 map("n", "<leader>ca", vsc("editor.action.codeAction"), { desc = "Code action" })
 map("n", "<leader>cr", vsc("editor.action.rename"), { desc = "Renombrar" })
-map("n", "<leader>cs", vsc("workbench.action.gotoSymbol"), { desc = "Ir a símbolo" })
+map("n", "<leader>cs", vscall("workbench.action.gotoSymbol"), { desc = "Ir a símbolo" })
 map("n", "<leader>gd", vsc("editor.action.revealDefinition"), { desc = "Definición" })
 map("n", "<leader>gr", vsc("editor.action.goToReferences"), { desc = "Referencias" })
 map("n", "<leader>gi", vsc("editor.action.goToImplementation"), { desc = "Implementación" })
@@ -161,4 +173,23 @@ map("n", "<leader>st", vsc("workbench.view.extension.todo-tree-container"), { de
 -- Copilot Chat vive en el sidebar secundario (derecha). Claude Code tiene
 -- además sus atajos nativos: Ctrl+Esc (foco editor <-> Claude) y Alt+K
 -- (insertar @-mention de la selección).
--- ══════════════════════════════════
+-- ════════════════════════════════════════════════════════════════════════════
+-- Copilot Chat
+map({ "n", "v" }, "<leader>aa", vsc("workbench.action.chat.open"), { desc = "IA: abrir chat (Copilot)" })
+map("n", "<leader>ax", vsc("workbench.action.closeAuxiliaryBar"), { desc = "IA: cerrar panel de chat" })
+map("n", "<leader>ap", vsc("workbench.action.toggleAuxiliaryBar"), { desc = "IA: toggle panel de chat" })
+map("n", "<leader>an", vsc("workbench.action.chat.newChat"), { desc = "IA: chat nuevo" })
+map("n", "<leader>ah", vsc("workbench.action.chat.history"), { desc = "IA: historial de chats" })
+map({ "n", "v" }, "<leader>ai", vsc("inlineChat.start"), { desc = "IA: chat inline en el editor" })
+-- Acciones de Copilot sobre la selección (modo visual)
+map("v", "<leader>ae", vsc("github.copilot.chat.explain"), { desc = "IA: explicar selección" })
+map("v", "<leader>af", vsc("github.copilot.chat.fix"), { desc = "IA: arreglar selección" })
+map("v", "<leader>ag", vsc("github.copilot.chat.generateTests"), { desc = "IA: generar tests" })
+map("v", "<leader>ar", vsc("github.copilot.chat.review"), { desc = "IA: review de la selección" })
+-- Claude Code (extensión anthropic.claude-code)
+map("n", "<leader>ac", vsc("claude-vscode.sidebar.open"), { desc = "IA: Claude Code en sidebar" })
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- GUARDAR (tu <C-s>)
+-- ════════════════════════════════════════════════════════════════════════════
+map({ "n", "i", "v" }, "<C-s>", vsc("workbench.action.files.save"), { desc = "Guardar" })
