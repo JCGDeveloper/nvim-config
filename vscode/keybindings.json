@@ -42,6 +42,10 @@
   //    Solo en archivos ABAP remotos (adt); en el resto, Ctrl+G sigue siendo "ir a línea"
   { "key": "ctrl+g", "command": "abapfs.runInEmbeddedGui", "when": "editorTextFocus && resourceScheme == 'adt' && neovim.mode == 'normal'" },
 
+  // ── Cerrar webview activo (SAP GUI embebido, previews) — sin pestañas no hay
+  //    otra salida; Ctrl+Q solo actúa cuando el foco está en un webview ──
+  { "key": "ctrl+q", "command": "workbench.action.closeActiveEditor", "when": "activeWebviewPanelId" },
+
   // ── Salir del panel de chat IA (sidebar secundario) con Ctrl+l ──
   { "key": "ctrl+l", "command": "workbench.action.focusActiveEditorGroup", "when": "auxiliaryBarFocus" },
 
