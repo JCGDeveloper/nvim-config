@@ -44,6 +44,8 @@
 
   // ── Cerrar webview activo (SAP GUI embebido, previews) — sin pestañas no hay
   //    otra salida; Ctrl+Q solo actúa cuando el foco está en un webview ──
+  //    Además quitamos el default de VSCode (picker de vistas) para que no salte
+  { "key": "ctrl+q", "command": "-workbench.action.quickOpenView" },
   { "key": "ctrl+q", "command": "workbench.action.closeActiveEditor", "when": "activeWebviewPanelId" },
 
   // ── Salir del panel de chat IA (sidebar secundario) con Ctrl+l ──

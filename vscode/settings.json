@@ -102,5 +102,8 @@
 
   // ── Todo Tree (resaltar TODO/FIX/HACK, como todo-comments) ───────────────
   "todo-tree.highlights.enabled": true,
-  "todo-tree.general.tags": ["TODO", "FIX", "FIXME", "HACK", "BUG", "NOTE", "PERF"]
+  "todo-tree.general.tags": ["TODO", "FIX", "FIXME", "HACK", "BUG", "NOTE", "PERF"],
+  // OJO: ruta con hash de versión de VSCode — si Todo Tree vuelve a quejarse
+  // tras una actualización, buscá rg.exe de nuevo y actualizá esta línea
+  "todo-tree.ripgrep": "C:\\Users\\jcarrasco6\\AppData\\Local\\Programs\\Microsoft VS Code\\1b50d58d73\\resources\\app\\node_modules\\@vscode\\ripgrep-universal\\bin\\win32-x64\\rg.exe"
 }
