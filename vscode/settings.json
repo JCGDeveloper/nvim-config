@@ -101,6 +101,10 @@
   "editor.inlayHints.enabled": "off", // como en tu config (inlay hints desactivados)
 
   // ── Todo Tree (resaltar TODO/FIX/HACK, como todo-comments) ───────────────
+  // Forzar activación en workspaces virtuales (ABAP FS): si no, VSCode la
+  // deshabilita. En remoto el árbol no puede escanear (no hay archivos en
+  // disco); si molesta, añadí "todo-tree.tree.scanMode": "open files".
+  "extensions.supportVirtualWorkspaces": { "Gruntfuggly.todo-tree": true },
   "todo-tree.highlights.enabled": true,
   "todo-tree.general.tags": ["TODO", "FIX", "FIXME", "HACK", "BUG", "NOTE", "PERF"],
   // OJO: ruta con hash de versión de VSCode — si Todo Tree vuelve a quejarse
