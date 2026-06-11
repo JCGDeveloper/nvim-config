@@ -190,6 +190,20 @@ map("v", "<leader>ar", vsc("github.copilot.chat.review"), { desc = "IA: review d
 map("n", "<leader>ac", vsc("claude-vscode.sidebar.open"), { desc = "IA: Claude Code en sidebar" })
 
 -- ════════════════════════════════════════════════════════════════════════════
+-- SAP / ABAP (space r *) — requiere extensión ABAP remote filesystem (abapfs)
+--
+-- Solo tienen efecto en archivos del sistema remoto (scheme adt). Además,
+-- Ctrl+G (como en Eclipse) abre el GUI embebido — está en keybindings.json.
+-- Defaults de la extensión: Ctrl+Shift+F5 GUI nativo, F7 embebido, F6 browser.
+-- ════════════════════════════════════════════════════════════════════════════
+map("n", "<leader>rg", vsc("abapfs.runInEmbeddedGui"), { desc = "SAP: GUI embebido (pestaña)" })
+map("n", "<leader>rG", vsc("abapfs.runInGui"), { desc = "SAP: GUI nativo (ventana)" })
+map("n", "<leader>rb", vsc("abapfs.execute"), { desc = "SAP: GUI en navegador" })
+map("n", "<leader>rt", vscall("abapfs.runTransaction"), { desc = "SAP: ejecutar transacción" })
+map("n", "<leader>rx", vsc("abapfs.manageTextElements"), { desc = "SAP: elementos de texto" })
+map("n", "<leader>ra", vsc("abapfs.activate"), { desc = "SAP: activar objeto" })
+
+-- ════════════════════════════════════════════════════════════════════════════
 -- GUARDAR (tu <C-s>)
 -- ════════════════════════════════════════════════════════════════════════════
 map({ "n", "i", "v" }, "<C-s>", vsc("workbench.action.files.save"), { desc = "Guardar" })
