@@ -11,59 +11,189 @@
 // ══════════════════════════════════════════════════════════════════════════
 [
   // ── Navegación entre ventanas (tu Ctrl+hjkl tmux) ──
-  { "key": "ctrl+h", "command": "workbench.action.navigateLeft",  "when": "editorTextFocus && neovim.mode == 'normal'" },
-  { "key": "ctrl+l", "command": "workbench.action.navigateRight", "when": "editorTextFocus && neovim.mode == 'normal'" },
-  { "key": "ctrl+k", "command": "workbench.action.navigateUp",    "when": "editorTextFocus && neovim.mode == 'normal'" },
-  { "key": "ctrl+j", "command": "workbench.action.navigateDown",  "when": "editorTextFocus && neovim.mode == 'normal'" },
-
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.navigateLeft",
+    "when": "editorTextFocus && neovim.mode == 'normal'"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.navigateRight",
+    "when": "editorTextFocus && neovim.mode == 'normal'"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.navigateUp",
+    "when": "editorTextFocus && neovim.mode == 'normal'"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.navigateDown",
+    "when": "editorTextFocus && neovim.mode == 'normal'"
+  },
   // ── Mover editor entre grupos (tu Ctrl+Shift+hjkl) ──
-  { "key": "ctrl+shift+h", "command": "workbench.action.moveEditorToLeftGroup",  "when": "neovim.mode == 'normal'" },
-  { "key": "ctrl+shift+l", "command": "workbench.action.moveEditorToRightGroup", "when": "neovim.mode == 'normal'" },
-  { "key": "ctrl+shift+k", "command": "workbench.action.moveEditorToAboveGroup", "when": "neovim.mode == 'normal'" },
-  { "key": "ctrl+shift+j", "command": "workbench.action.moveEditorToBelowGroup", "when": "neovim.mode == 'normal'" },
-
+  {
+    "key": "ctrl+shift+h",
+    "command": "workbench.action.moveEditorToLeftGroup",
+    "when": "neovim.mode == 'normal'"
+  },
+  {
+    "key": "ctrl+shift+l",
+    "command": "workbench.action.moveEditorToRightGroup",
+    "when": "neovim.mode == 'normal'"
+  },
+  {
+    "key": "ctrl+shift+k",
+    "command": "workbench.action.moveEditorToAboveGroup",
+    "when": "neovim.mode == 'normal'"
+  },
+  {
+    "key": "ctrl+shift+j",
+    "command": "workbench.action.moveEditorToBelowGroup",
+    "when": "neovim.mode == 'normal'"
+  },
+  //TODO:Pruebas
   // ── Redimensionar ventanas (tu Ctrl+Alt+hjkl) ──
-  { "key": "ctrl+alt+h", "command": "workbench.action.decreaseViewWidth",  "when": "neovim.mode == 'normal' && !inputFocus" },
-  { "key": "ctrl+alt+l", "command": "workbench.action.increaseViewWidth",  "when": "neovim.mode == 'normal' && !inputFocus" },
-  { "key": "ctrl+alt+k", "command": "workbench.action.decreaseViewHeight", "when": "neovim.mode == 'normal' && !inputFocus" },
-  { "key": "ctrl+alt+j", "command": "workbench.action.increaseViewHeight", "when": "neovim.mode == 'normal' && !inputFocus" },
-
+  {
+    "key": "ctrl+alt+h",
+    "command": "workbench.action.decreaseViewWidth",
+    "when": "neovim.mode == 'normal' && !inputFocus"
+  },
+  {
+    "key": "ctrl+alt+l",
+    "command": "workbench.action.increaseViewWidth",
+    "when": "neovim.mode == 'normal' && !inputFocus"
+  },
+  {
+    "key": "ctrl+alt+k",
+    "command": "workbench.action.decreaseViewHeight",
+    "when": "neovim.mode == 'normal' && !inputFocus"
+  },
+  {
+    "key": "ctrl+alt+j",
+    "command": "workbench.action.increaseViewHeight",
+    "when": "neovim.mode == 'normal' && !inputFocus"
+  },
   // ── Pestañas dentro del grupo (tu Tab / Shift+Tab) ──
-  { "key": "tab",       "command": "workbench.action.nextEditorInGroup",     "when": "editorTextFocus && neovim.mode == 'normal'" },
-  { "key": "shift+tab", "command": "workbench.action.previousEditorInGroup", "when": "editorTextFocus && neovim.mode == 'normal'" },
-
+  {
+    "key": "tab",
+    "command": "workbench.action.nextEditorInGroup",
+    "when": "editorTextFocus && neovim.mode == 'normal'"
+  },
+  {
+    "key": "shift+tab",
+    "command": "workbench.action.previousEditorInGroup",
+    "when": "editorTextFocus && neovim.mode == 'normal'"
+  },
   // ── Multicursor (tu Ctrl+n) ──
-  { "key": "ctrl+n", "command": "editor.action.addSelectionToNextFindMatch", "when": "editorTextFocus" },
-
+  {
+    "key": "ctrl+n",
+    "command": "editor.action.addSelectionToNextFindMatch",
+    "when": "editorTextFocus"
+  },
   // ── Aceptar sugerencia IA (tu Alt+Enter) ──
-  { "key": "alt+enter", "command": "editor.action.inlineSuggest.commit", "when": "inlineSuggestionVisible" },
-
+  {
+    "key": "alt+enter",
+    "command": "editor.action.inlineSuggest.commit",
+    "when": "inlineSuggestionVisible"
+  },
   // ── SAP: Ctrl+G como en Eclipse — abre el GUI embebido del objeto actual ──
   //    Solo en archivos ABAP remotos (adt); en el resto, Ctrl+G sigue siendo "ir a línea"
-  { "key": "ctrl+g", "command": "abapfs.runInEmbeddedGui", "when": "editorTextFocus && resourceScheme == 'adt' && neovim.mode == 'normal'" },
-
+  {
+    "key": "ctrl+g",
+    "command": "abapfs.runInEmbeddedGui",
+    "when": "editorTextFocus && resourceScheme == 'adt' && neovim.mode == 'normal'"
+  },
   // ── Ctrl+Q cierra el editor/webview activo (salir del SAP GUI embebido) ──
   //    Global y sin 'when': los webviews de abapfs no siempre activan los
   //    context keys estándar. Quitamos antes el default (picker de vistas).
-  { "key": "ctrl+q", "command": "-workbench.action.quickOpenView" },
-  { "key": "ctrl+q", "command": "workbench.action.closeActiveEditor" },
-
+  {
+    "key": "ctrl+q",
+    "command": "-workbench.action.quickOpenView"
+  },
+  {
+    "key": "ctrl+q",
+    "command": "workbench.action.closeActiveEditor"
+  },
+  // ── ...y con el foco en el panel de chat IA, Ctrl+Q cierra ese panel ──
+  {
+    "key": "ctrl+q",
+    "command": "workbench.action.closeAuxiliaryBar",
+    "when": "auxiliaryBarFocus"
+  },
   // ── Salir del panel de chat IA (sidebar secundario) con Ctrl+l ──
-  { "key": "ctrl+l", "command": "workbench.action.focusActiveEditorGroup", "when": "auxiliaryBarFocus" },
-
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "auxiliaryBarFocus"
+  },
   // ── Salir del sidebar con Esc / Ctrl+l (tus parches) ──
-  { "key": "escape", "command": "workbench.action.toggleSidebarVisibility",  "when": "sideBarVisible && sideBarFocus" },
-  { "key": "ctrl+l", "command": "workbench.action.focusActiveEditorGroup",   "when": "sideBarVisible && sideBarFocus" },
-
+  {
+    "key": "escape",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "sideBarVisible && sideBarFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "sideBarVisible && sideBarFocus"
+  },
   // ── Atajos dentro del explorador de archivos (tus r/c/p/x/d/a/s) ──
-  { "key": "r",       "command": "renameFile",            "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
-  { "key": "c",       "command": "filesExplorer.copy",    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
-  { "key": "p",       "command": "filesExplorer.paste",   "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
-  { "key": "x",       "command": "filesExplorer.cut",     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
-  { "key": "d",       "command": "deleteFile",            "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
-  { "key": "a",       "command": "explorer.newFile",      "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
-  { "key": "s",       "command": "explorer.openToSide",   "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
-  { "key": "shift+s", "command": "runCommands", "args": { "commands": ["workbench.action.splitEditorDown", "explorer.openAndPassFocus", "workbench.action.closeOtherEditors"] }, "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" },
-  { "key": "enter",   "command": "explorer.openAndPassFocus", "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceIsFolder && !inputFocus" },
-  { "key": "enter",   "command": "list.toggleExpand",         "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && explorerResourceIsFolder && !inputFocus" }
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "c",
+    "command": "filesExplorer.copy",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "p",
+    "command": "filesExplorer.paste",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "x",
+    "command": "filesExplorer.cut",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "d",
+    "command": "deleteFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "a",
+    "command": "explorer.newFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "s",
+    "command": "explorer.openToSide",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "shift+s",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.action.splitEditorDown",
+        "explorer.openAndPassFocus",
+        "workbench.action.closeOtherEditors"
+      ]
+    },
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "enter",
+    "command": "explorer.openAndPassFocus",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceIsFolder && !inputFocus"
+  },
+  {
+    "key": "enter",
+    "command": "list.toggleExpand",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && explorerResourceIsFolder && !inputFocus"
+  }
 ]
