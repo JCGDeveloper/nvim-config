@@ -88,7 +88,10 @@ map("n", "<leader>z", vsc("workbench.action.toggleZenMode"), { desc = "Modo Zen"
 -- Siempre abre el EXPLORADOR (no "lo último que hubiera en el sidebar").
 -- Para cerrarlo: Esc con el foco en el sidebar (ver keybindings.json).
 map("n", "<leader>e", vsc("workbench.view.explorer"), { desc = "Explorador de archivos" })
-map("n", "-", vsc("workbench.action.navigateBack"), { desc = "Volver atrás" })
+-- "-" = volver al ARCHIVO anterior de un salto (como el alternate file C-^ de
+-- vim). Pulsado otra vez, vuelve al que estabas. Para el "atrás" fino paso a
+-- paso (jumplist), usá Ctrl+o / Ctrl+i, que vscode-neovim ya mapea solo.
+map("n", "-", vsc("workbench.action.openPreviousRecentlyUsedEditorInGroup"), { desc = "Archivo anterior (alternate)" })
 map("n", "<leader>,", vscall("workbench.action.showAllEditors"), { desc = "Todos los editores" })
 
 -- ════════════════════════════════════════════════════════════════════════════

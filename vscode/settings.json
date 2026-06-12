@@ -265,9 +265,12 @@
         { "key": "s", "name": "🔍 Buscar objeto", "type": "command", "command": "abapfs.search" },
         { "key": "n", "name": "🆕 Crear objeto", "type": "command", "command": "abapfs.create" },
         { "key": "T", "name": "📊 Contenido de tabla (SE16)", "type": "command", "command": "abapfs.tableContents" },
+        { "key": "h", "name": "📜 Historial de versiones (Object Property)", "type": "command", "command": "abapfs.objectProperty.focus" },
+        { "key": "D", "name": "💥 Dumps (ST22)", "type": "command", "command": "abapfs.dumps.focus" },
+        { "key": "p", "name": "📦 Transportes", "type": "command", "command": "abapfs.transports.focus" },
         { "key": "u", "name": "🧪 Unit tests", "type": "command", "command": "abapfs.unittest" },
         { "key": "q", "name": "💡 Quickfix", "type": "command", "command": "abapfs.quickfix" },
-        { "key": "d", "name": "📚 Documentación ABAP", "type": "command", "command": "abapfs.showdocu" },
+        { "key": "d", "name": "📚 Documentación ABAP (cursor)", "type": "command", "command": "abapfs.showdocu" },
         {
           "key": "v", "name": "🔬 +Análisis", "type": "bindings", "bindings": [
             { "key": "a", "name": "🧪 ATC checks", "type": "command", "command": "abapfs.atcChecks" },

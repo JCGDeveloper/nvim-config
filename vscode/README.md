@@ -464,8 +464,11 @@ which-key con el menú — no hace falta memorizar nada, pero aquí está todo.
 | `espacio r x` | 🔤 Elementos de texto |
 | `espacio r s` | 🔍 Buscar objeto del sistema |
 | `espacio r n` | 🆕 Crear objeto |
-| `espacio r T` | 📊 Contenido de una tabla (estilo SE16) |
-| `espacio r u` / `r q` / `r d` | 🧪 Unit tests / 💡 quickfix / 📚 documentación ABAP |
+| `espacio r T` | 📊 Contenido de una tabla (estilo SE16; con CDS no siempre va) |
+| `espacio r u` / `r q` | 🧪 Unit tests / 💡 quickfix |
+| `espacio r d` | 📚 Documentación ABAP del elemento bajo el cursor (en `CALL FUNCTION 'X'` documenta la sentencia, no la función — para la función usá `gd`) |
+| `espacio r h` | 📜 Object Property: historial de versiones del objeto (marca 2 → diff) |
+| `espacio r D` / `r p` | 💥 Panel de Dumps (ST22) / 📦 panel de Transportes |
 | `espacio r v a` | 🧪 ATC checks |
 | `espacio r v b` / `v B` | 👤 Blame SAP: mostrar / ocultar |
 | `espacio r v g` | 🕸️ Grafo de dependencias |
@@ -483,7 +486,8 @@ which-key con el menú — no hace falta memorizar nada, pero aquí está todo.
 | `g p d` / `g p D` | Peek de definición / declaración (recuadro sin salir del archivo) |
 | `g p i` / `g p y` / `g p r` | Peek de implementación / tipo / referencias |
 | `g P` | Cerrar el peek |
-| `-` | Volver atrás (navegación) |
+| `-` | Volver al archivo anterior de un salto (alternate file); otra vez = vuelve |
+| `Ctrl+o` / `Ctrl+i` | Atrás / adelante por el jumplist (paso a paso, como Alt+←/→) |
 | `] t` / `[ t` | Saltar al siguiente / anterior TODO·FIX·HACK·BUG·NOTE·PERF del archivo |
 | `J` / `K` (en visual) | Mover las líneas seleccionadas abajo / arriba |
 
