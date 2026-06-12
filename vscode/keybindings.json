@@ -95,14 +95,15 @@
     "when": "editorTextFocus && neovim.mode == 'normal'"
   },
   // ── Panel inferior: navegar entre sus pestañas (Terminal, Problems, ...) ──
-  //    Con el foco en el panel: Alt+h / Alt+l van a la pestaña anterior/siguiente
+  //    Con el foco en el panel: Alt+, / Alt+. van a la pestaña anterior/siguiente
+  //    (no usamos Alt+h/l porque GlazeWM se queda Alt+hjkl para el foco de ventanas)
   {
-    "key": "alt+h",
+    "key": "alt+,",
     "command": "workbench.action.previousPanelView",
     "when": "panelFocus"
   },
   {
-    "key": "alt+l",
+    "key": "alt+.",
     "command": "workbench.action.nextPanelView",
     "when": "panelFocus"
   },
