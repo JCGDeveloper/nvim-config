@@ -41,6 +41,9 @@
   "window.customTitleBarVisibility": "never",
   "window.commandCenter": false,
   "window.menuBarVisibility": "hidden",
+  // Sin mnemonics Alt+letra (Alt+H abría Help y pisaba Alt+h del panel).
+  // El menú sigue accesible pulsando Alt a solas.
+  "window.enableMenuBarMnemonics": false,
 
   // ── UI a cero, statusline visible (tu lualine) ───────────────────────────
   "workbench.activityBar.location": "hidden",
