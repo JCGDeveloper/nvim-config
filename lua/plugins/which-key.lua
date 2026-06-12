@@ -21,11 +21,14 @@ return {
       function()
         require("which-key").show({ global = false }) -- Show the which-key popup for local keybindings
       end,
+      desc = "Buffer Local Keymaps (which-key)",
     },
-    {
+  },
+
+  opts = {
+    spec = {
       -- Define a group for Obsidian-related commands
-      "<leader>o",
-      group = "Obsidian",
+      { "<leader>o", group = "Obsidian" },
     },
   },
 }

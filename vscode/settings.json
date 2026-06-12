@@ -92,7 +92,18 @@
     "statusBar.border": "#00000000",
     "panel.border": "#00000000",
     "tab.border": "#00000000",
-    "editorWidget.border": "#00000000"
+    "editorWidget.border": "#00000000",
+    // QuickPick (popup de which-key y pickers) a juego con Kanagawa
+    "quickInput.background": "#1F1F28",
+    "quickInput.foreground": "#DCD7BA",
+    "quickInputTitle.background": "#2A2A37",
+    "quickInputList.focusBackground": "#2D4F67",
+    "quickInputList.focusForeground": "#DCD7BA",
+    "quickInputList.focusIconForeground": "#C8C093",
+    "pickerGroup.foreground": "#957FB8",
+    "pickerGroup.border": "#00000000",
+    "widget.border": "#54546D",
+    "widget.shadow": "#00000066"
   },
 
   // ── Comportamiento ───────────────────────────────────────────────────────
@@ -107,7 +118,172 @@
   "extensions.supportVirtualWorkspaces": { "Gruntfuggly.todo-tree": true },
   "todo-tree.highlights.enabled": true,
   "todo-tree.general.tags": ["TODO", "FIX", "FIXME", "HACK", "BUG", "NOTE", "PERF"],
-  // OJO: ruta con hash de versión de VSCode — si Todo Tree vuelve a quejarse
-  // tras una actualización, buscá rg.exe de nuevo y actualizá esta línea
-  "todo-tree.ripgrep": "C:\\Users\\jcarrasco6\\AppData\\Local\\Programs\\Microsoft VS Code\\1b50d58d73\\resources\\app\\node_modules\\@vscode\\ripgrep-universal\\bin\\win32-x64\\rg.exe"
+  // ripgrep instalado con winget (BurntSushi.ripgrep.MSVC) — ruta estable,
+  // no se rompe con las actualizaciones de VSCode. Si actualizás ripgrep,
+  // cambiará el número de versión de la carpeta: buscá rg.exe de nuevo con
+  // Get-ChildItem "$env:LOCALAPPDATA\Microsoft\WinGet\Packages" -Recurse -Filter rg.exe
+  "todo-tree.ripgrep": "C:\\Users\\jcarrasco6\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BurntSushi.ripgrep.MSVC_Microsoft.Winget.Source_8wekyb3d8bbwe\\ripgrep-15.1.0-x86_64-pc-windows-msvc\\rg.exe",
+  // En el workspace remoto SAP no hay archivos en disco: el panel lista solo
+  // los archivos abiertos. En carpetas locales escanea todo igualmente.
+  "todo-tree.tree.scanMode": "open files",
+  // Regex extendida para reconocer también los comentarios de ABAP:
+  // " comentario inline   y   * comentario de línea completa
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|\"|^\\*+)\\s*($TAGS)",
+
+  // ── WhichKey: popup de atajos (como which-key.nvim) ──────────────────────
+  // Requiere la extensión VSpaceCode.whichkey. Se dispara con espacio en modo
+  // normal (ver keybindings.json). Cada opción reenvía la secuencia a Neovim
+  // (vscode-neovim.send), así los mappings del init.lua no se duplican: este
+  // menú es solo la "carátula" visual. Si añadís un atajo nuevo en init.lua,
+  // añadilo también aquí para que salga en el popup.
+  "whichkey.delay": 0,
+  "whichkey.sortOrder": "alphabetically",
+  "whichkey.bindings": [
+    { "key": " ", "name": "🗂️ Buscar archivos", "type": "command", "command": "vscode-neovim.send", "args": "<space><space>" },
+    { "key": ",", "name": "📑 Todos los editores", "type": "command", "command": "vscode-neovim.send", "args": "<space>," },
+    { "key": "e", "name": "🌲 Toggle explorador", "type": "command", "command": "vscode-neovim.send", "args": "<space>e" },
+    { "key": "z", "name": "🧘 Modo Zen", "type": "command", "command": "vscode-neovim.send", "args": "<space>z" },
+    {
+      "key": "m", "name": "🔲 +Maximizar/Marcas", "type": "bindings", "bindings": [
+        { "key": "m", "name": "🔲 Maximizar grupo", "type": "command", "command": "vscode-neovim.send", "args": "<space>m" },
+        { "key": "d", "name": "🧹 Borrar todas las marcas", "type": "command", "command": "vscode-neovim.send", "args": "<space>md" }
+      ]
+    },
+    {
+      "key": "f", "name": "📁 +Archivo/Terminal", "type": "bindings", "bindings": [
+        { "key": "t", "name": "💻 Toggle terminal", "type": "command", "command": "vscode-neovim.send", "args": "<space>ft" },
+        { "key": "T", "name": "➕ Nueva terminal", "type": "command", "command": "workbench.action.terminal.new" },
+        { "key": "n", "name": "🆕 Nuevo archivo", "type": "command", "command": "workbench.action.files.newUntitledFile" },
+        { "key": "r", "name": "🕘 Recientes (archivos/carpetas)", "type": "command", "command": "workbench.action.openRecent" },
+        { "key": "s", "name": "💾 Guardar todo", "type": "command", "command": "workbench.action.files.saveAll" }
+      ]
+    },
+    {
+      "key": "s", "name": "🔎 +Buscar/Split", "type": "bindings", "bindings": [
+        { "key": "h", "name": "➡️ Split derecha", "type": "command", "command": "vscode-neovim.send", "args": "<space>sh" },
+        { "key": "v", "name": "⬇️ Split abajo", "type": "command", "command": "vscode-neovim.send", "args": "<space>sv" },
+        { "key": "g", "name": "🔎 Buscar texto (teclado)", "type": "command", "command": "vscode-neovim.send", "args": "<space>sg" },
+        { "key": "G", "name": "🗂️ Buscar en archivos (panel)", "type": "command", "command": "vscode-neovim.send", "args": "<space>sG" },
+        { "key": "t", "name": "📌 Lista de TODOs", "type": "command", "command": "vscode-neovim.send", "args": "<space>st" },
+        { "key": "r", "name": "♻️ Reemplazar en archivos", "type": "command", "command": "workbench.action.replaceInFiles" }
+      ]
+    },
+    {
+      "key": "b", "name": "📄 +Buffers", "type": "bindings", "bindings": [
+        { "key": "d", "name": "❌ Cerrar editor", "type": "command", "command": "vscode-neovim.send", "args": "<space>bd" },
+        { "key": "o", "name": "🧹 Cerrar otros (este grupo)", "type": "command", "command": "vscode-neovim.send", "args": "<space>bo" },
+        { "key": "g", "name": "🗑️ Cerrar los otros grupos", "type": "command", "command": "workbench.action.closeEditorsInOtherGroups" },
+        { "key": "a", "name": "💥 Cerrar todos", "type": "command", "command": "workbench.action.closeAllEditors" },
+        { "key": "r", "name": "♻️ Reabrir cerrado", "type": "command", "command": "workbench.action.reopenClosedEditor" }
+      ]
+    },
+    {
+      "key": "c", "name": "🛠️ +Código", "type": "bindings", "bindings": [
+        { "key": "a", "name": "💡 Code action", "type": "command", "command": "vscode-neovim.send", "args": "<space>ca" },
+        { "key": "r", "name": "✏️ Renombrar", "type": "command", "command": "vscode-neovim.send", "args": "<space>cr" },
+        { "key": "s", "name": "🧭 Ir a símbolo", "type": "command", "command": "vscode-neovim.send", "args": "<space>cs" },
+        { "key": "o", "name": "🗺️ Outline de símbolos", "type": "command", "command": "vscode-neovim.send", "args": "<space>co" },
+        { "key": "f", "name": "🪄 Formatear documento", "type": "command", "command": "editor.action.formatDocument" },
+        { "key": "i", "name": "📦 Organizar imports", "type": "command", "command": "editor.action.organizeImports" }
+      ]
+    },
+    {
+      "key": "g", "name": "🌿 +Git/Goto", "type": "bindings", "bindings": [
+        { "key": "g", "name": "🌿 Git (SCM)", "type": "command", "command": "vscode-neovim.send", "args": "<space>gg" },
+        { "key": "d", "name": "🎯 Definición", "type": "command", "command": "vscode-neovim.send", "args": "<space>gd" },
+        { "key": "r", "name": "🔗 Referencias", "type": "command", "command": "vscode-neovim.send", "args": "<space>gr" },
+        { "key": "i", "name": "🧩 Implementación", "type": "command", "command": "vscode-neovim.send", "args": "<space>gi" },
+        { "key": "b", "name": "👤 Blame de la línea", "type": "command", "command": "vscode-neovim.send", "args": "<space>gb" },
+        { "key": "B", "name": "👥 Blame del archivo", "type": "command", "command": "vscode-neovim.send", "args": "<space>gB" },
+        { "key": "h", "name": "🕘 Historial del archivo", "type": "command", "command": "vscode-neovim.send", "args": "<space>gh" },
+        { "key": "L", "name": "🕐 Historial de la línea", "type": "command", "command": "vscode-neovim.send", "args": "<space>gL" },
+        { "key": "l", "name": "🔍 Detalle commit de la línea", "type": "command", "command": "vscode-neovim.send", "args": "<space>gl" },
+        { "key": "c", "name": "↔️ Comparar con anterior", "type": "command", "command": "vscode-neovim.send", "args": "<space>gc" },
+        { "key": "o", "name": "🌐 Abrir en remoto", "type": "command", "command": "vscode-neovim.send", "args": "<space>go" },
+        { "key": "y", "name": "📋 Copiar link remoto", "type": "command", "command": "vscode-neovim.send", "args": "<space>gy" },
+        { "key": "v", "name": "🕸️ Grafo de commits", "type": "command", "command": "vscode-neovim.send", "args": "<space>gv" }
+      ]
+    },
+    {
+      "key": "d", "name": "🐞 +Debug", "type": "bindings", "bindings": [
+        { "key": "a", "name": "▶️ Iniciar", "type": "command", "command": "vscode-neovim.send", "args": "<space>da" },
+        { "key": "t", "name": "⏹️ Parar", "type": "command", "command": "vscode-neovim.send", "args": "<space>dt" },
+        { "key": "o", "name": "⤵️ Step over", "type": "command", "command": "vscode-neovim.send", "args": "<space>do" },
+        { "key": "b", "name": "🔴 Breakpoint", "type": "command", "command": "vscode-neovim.send", "args": "<space>db" },
+        { "key": "e", "name": "👁️ Hover de debug", "type": "command", "command": "vscode-neovim.send", "args": "<space>de" },
+        { "key": "c", "name": "⏯️ Continuar", "type": "command", "command": "vscode-neovim.send", "args": "<space>dc" }
+      ]
+    },
+    {
+      "key": "x", "name": "⚠️ +Diagnósticos", "type": "bindings", "bindings": [
+        { "key": "x", "name": "⚠️ Problems", "type": "command", "command": "vscode-neovim.send", "args": "<space>xx" }
+      ]
+    },
+    {
+      "key": "a", "name": "🤖 +IA", "type": "bindings", "bindings": [
+        { "key": "a", "name": "💬 Abrir chat (Copilot)", "type": "command", "command": "vscode-neovim.send", "args": "<space>aa" },
+        { "key": "c", "name": "🤖 Claude Code en sidebar", "type": "command", "command": "vscode-neovim.send", "args": "<space>ac" },
+        { "key": "i", "name": "✨ Chat inline", "type": "command", "command": "vscode-neovim.send", "args": "<space>ai" },
+        { "key": "n", "name": "🆕 Chat nuevo", "type": "command", "command": "vscode-neovim.send", "args": "<space>an" },
+        { "key": "h", "name": "🕘 Historial de chats", "type": "command", "command": "vscode-neovim.send", "args": "<space>ah" },
+        { "key": "p", "name": "🔁 Toggle panel de chat", "type": "command", "command": "vscode-neovim.send", "args": "<space>ap" },
+        { "key": "x", "name": "❌ Cerrar panel de chat", "type": "command", "command": "vscode-neovim.send", "args": "<space>ax" }
+      ]
+    },
+    {
+      "key": "u", "name": "🎛️ +UI/Toggles", "type": "bindings", "bindings": [
+        { "key": "w", "name": "↩️ Word wrap", "type": "command", "command": "editor.action.toggleWordWrap" },
+        { "key": "m", "name": "🗺️ Minimap", "type": "command", "command": "editor.action.toggleMinimap" },
+        { "key": "p", "name": "🧰 Panel inferior", "type": "command", "command": "workbench.action.togglePanel" },
+        { "key": "s", "name": "📊 Barra de estado", "type": "command", "command": "workbench.action.toggleStatusbarVisibility" },
+        { "key": "t", "name": "🎨 Elegir tema", "type": "command", "command": "workbench.action.selectTheme" },
+        { "key": "f", "name": "🖥️ Pantalla completa", "type": "command", "command": "workbench.action.toggleFullScreen" }
+      ]
+    },
+    {
+      "key": "p", "name": "📦 +Proyecto/VSCode", "type": "bindings", "bindings": [
+        { "key": "p", "name": "🎛️ Paleta de comandos", "type": "command", "command": "workbench.action.showCommands" },
+        { "key": "o", "name": "📂 Abrir carpeta", "type": "command", "command": "workbench.action.files.openFolder" },
+        { "key": "s", "name": "⚙️ Settings", "type": "command", "command": "workbench.action.openSettings" },
+        { "key": "j", "name": "📝 Settings (JSON)", "type": "command", "command": "workbench.action.openSettingsJson" },
+        { "key": "k", "name": "⌨️ Atajos de teclado", "type": "command", "command": "workbench.action.openGlobalKeybindings" },
+        { "key": "e", "name": "🧩 Extensiones", "type": "command", "command": "workbench.view.extensions" }
+      ]
+    },
+    {
+      "key": "r", "name": "🏢 +SAP/ABAP", "type": "bindings", "bindings": [
+        { "key": "a", "name": "✅ Activar objeto actual", "type": "command", "command": "vscode-neovim.send", "args": "<space>ra" },
+        { "key": "A", "name": "🚀 Activar varios (inactivos)", "type": "command", "command": "abapfs.activateMultiple" },
+        { "key": "g", "name": "🖥️ GUI embebido (pestaña)", "type": "command", "command": "vscode-neovim.send", "args": "<space>rg" },
+        { "key": "G", "name": "🪟 GUI nativo (ventana)", "type": "command", "command": "vscode-neovim.send", "args": "<space>rG" },
+        { "key": "b", "name": "🌐 GUI en navegador", "type": "command", "command": "vscode-neovim.send", "args": "<space>rb" },
+        { "key": "t", "name": "⚙️ Ejecutar transacción", "type": "command", "command": "vscode-neovim.send", "args": "<space>rt" },
+        { "key": "x", "name": "🔤 Elementos de texto", "type": "command", "command": "vscode-neovim.send", "args": "<space>rx" },
+        { "key": "s", "name": "🔍 Buscar objeto", "type": "command", "command": "abapfs.search" },
+        { "key": "n", "name": "🆕 Crear objeto", "type": "command", "command": "abapfs.create" },
+        { "key": "T", "name": "📊 Contenido de tabla (SE16)", "type": "command", "command": "abapfs.tableContents" },
+        { "key": "u", "name": "🧪 Unit tests", "type": "command", "command": "abapfs.unittest" },
+        { "key": "q", "name": "💡 Quickfix", "type": "command", "command": "abapfs.quickfix" },
+        { "key": "d", "name": "📚 Documentación ABAP", "type": "command", "command": "abapfs.showdocu" },
+        {
+          "key": "v", "name": "🔬 +Análisis", "type": "bindings", "bindings": [
+            { "key": "a", "name": "🧪 ATC checks", "type": "command", "command": "abapfs.atcChecks" },
+            { "key": "b", "name": "👤 Blame: mostrar", "type": "command", "command": "abapfs.showBlame" },
+            { "key": "B", "name": "🙈 Blame: ocultar", "type": "command", "command": "abapfs.hideBlame" },
+            { "key": "g", "name": "🕸️ Grafo de dependencias", "type": "command", "command": "abapfs.visualizeDependencyGraph" },
+            { "key": "c", "name": "↔️ Comparar con otro sistema", "type": "command", "command": "abapfs.compareWithOtherSystem" },
+            { "key": "t", "name": "🧫 Crear test include", "type": "command", "command": "abapfs.createtestinclude" }
+          ]
+        },
+        {
+          "key": "C", "name": "🔌 +Conexión", "type": "bindings", "bindings": [
+            { "key": "c", "name": "🔌 Conectar a sistema", "type": "command", "command": "abapfs.connect" },
+            { "key": "d", "name": "🔚 Desconectar", "type": "command", "command": "abapfs.disconnect" },
+            { "key": "m", "name": "🗂️ Gestor de conexiones", "type": "command", "command": "abapfs.connectionManager" },
+            { "key": "p", "name": "🔑 Borrar contraseña guardada", "type": "command", "command": "abapfs.clearPassword" }
+          ]
+        }
+      ]
+    }
+  ]
 }

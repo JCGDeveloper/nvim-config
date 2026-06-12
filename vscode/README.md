@@ -16,6 +16,88 @@ SAP de forma nativa (sin el problema de red de WSL2).
 
 ---
 
+## 🆕 Instalación 100% copiar-y-pegar (sin scripts, sin git, cualquier usuario)
+
+Para portátiles de empresa donde no se pueden ejecutar scripts. No usa rutas con
+tu usuario: todo se abre desde VSCode o con variables de Windows, así que vale
+para **cualquier persona en cualquier máquina**.
+
+### 1. Instalar Neovim (si no lo tenés)
+
+Pegá esto en PowerShell (es un comando directo, NO un script — la ExecutionPolicy
+no lo bloquea):
+
+```powershell
+winget install Neovim.Neovim
+```
+
+Si winget tampoco está permitido: descargá el instalador `.msi` desde
+<https://github.com/neovim/neovim/releases> e instalalo con doble clic.
+
+### 2. Instalar las extensiones de VSCode
+
+En VSCode: `Ctrl+Shift+X` → buscá e instalá una a una:
+
+| Extensión | ID |
+|---|---|
+| VSCode Neovim | `asvetliakov.vscode-neovim` |
+| WhichKey | `VSpaceCode.whichkey` |
+| Kanagawa (theme) | `qufiwefefwoyn.kanagawa` |
+| Material Icon Theme | `pkief.material-icon-theme` |
+| GlassIt (transparencia, opcional) | `s-nlf-fh.glassit` |
+| Todo Tree | `Gruntfuggly.todo-tree` |
+| GitLens | `eamodio.gitlens` |
+| ABAP remote filesystem | `murbani.vscode-abap-remote-fs` |
+
+### 3. El `init.lua` de Neovim
+
+1. Abrí el archivo [`vscode/init.lua`](./init.lua) de este repo en GitHub →
+   botón **Raw** → `Ctrl+A`, `Ctrl+C`.
+2. `Win+R` → escribí `%LOCALAPPDATA%` → Enter. Si no existe una carpeta `nvim`,
+   creala.
+3. Dentro de `nvim`, creá un archivo llamado `init.lua` (clic derecho → Nuevo →
+   Documento de texto, y renombralo a `init.lua` exacto, sin `.txt`) → abrilo
+   con el bloc de notas o VSCode → pegá → guardá.
+
+### 4. Los atajos (`keybindings.json`)
+
+1. Copiá todo el contenido de [`vscode/keybindings.json`](./keybindings.json)
+   (Raw → `Ctrl+A`, `Ctrl+C`).
+2. En VSCode: `Ctrl+Shift+P` → **Preferences: Open Keyboard Shortcuts (JSON)**.
+3. Reemplazá TODO el contenido del archivo por lo copiado → guardá.
+
+### 5. La configuración (`settings.json`)
+
+1. Copiá todo el contenido de [`vscode/settings.json`](./settings.json).
+2. En VSCode: `Ctrl+Shift+P` → **Preferences: Open User Settings (JSON)**.
+3. Si tu settings está vacío (`{}`), reemplazalo entero. Si ya tenés cosas,
+   pegá las claves dentro de tus llaves, sin duplicar.
+
+**⚠️ Ajustes que SÍ dependen de tu máquina (cambialos tras pegar):**
+
+- `todo-tree.ripgrep`: la ruta lleva el usuario de Windows del autor. Instalá
+  ripgrep (`winget install BurntSushi.ripgrep.MSVC`), buscá tu ruta con:
+
+  ```powershell
+  Get-ChildItem "$env:LOCALAPPDATA\Microsoft\WinGet\Packages" -Recurse -Filter rg.exe | Select-Object -ExpandProperty FullName
+  ```
+
+  y poné esa ruta (con `\\` dobles). Si no vas a usar Todo Tree, borrá la línea.
+- `vscode-neovim.neovimExecutablePaths.win32`: comprobá que tenés
+  `C:\Program Files\Neovim\bin\nvim.exe`; si nvim quedó en otro sitio, ajustala.
+- **Tu conexión SAP**: añadí tu propio bloque `abapfs.remote` con la URL,
+  usuario y mandante de tu sistema. **Nunca subas ese bloque a git.** La
+  contraseña no va en settings: la pide al conectar y se guarda en el
+  administrador de credenciales de Windows.
+
+### 6. Reinicio y prueba
+
+Cerrá VSCode **por completo** (todas las ventanas) y reabrilo. En un archivo,
+en modo normal, apretá `espacio`: debería salir el popup de which-key con el
+menú. `espacio f t` abre la terminal, `Ctrl+hjkl` mueve entre splits.
+
+---
+
 ## ⚡ Copiar y pegar (Windows) — lo más rápido
 
 ### A) Instalación / actualización automática (recomendado)
@@ -50,7 +132,9 @@ Copy-Item "$env:USERPROFILE\nvim-config\vscode\init.lua" "$env:LOCALAPPDATA\nvim
 
 **3.** ⚠️ **CERRÁ VSCode por completo y reabrilo** (no "Reload Window"):
 los cambios de barra de título / command center **solo** se aplican con reinicio
-total. El primer arranque clona which-key (unos segundos, necesita git+internet).
+total. El popup de which-key lo da la extensión `VSpaceCode.whichkey` (ver
+sección de extensiones), no which-key.nvim — en vscode-neovim los plugins de
+UI flotante no se renderizan.
 
 **4.** Probá: en modo normal apretá `espacio` → debería salir el popup de which-key.
 

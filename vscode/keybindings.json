@@ -10,6 +10,15 @@
 //  respondiera en tu versión, quitá la parte "&& neovim.mode == 'normal'".
 // ══════════════════════════════════════════════════════════════════════════
 [
+  // ── WhichKey: popup de atajos al apretar espacio en modo normal ──
+  //    Requiere la extensión VSpaceCode.whichkey. El menú está en settings.json
+  //    ("whichkey.bindings") y reenvía las teclas a Neovim (vscode-neovim.send),
+  //    así los mappings del init.lua siguen siendo la única fuente de verdad.
+  {
+    "key": "space",
+    "command": "whichkey.show",
+    "when": "editorTextFocus && neovim.init && neovim.mode != 'insert'"
+  },
   // ── Navegación entre ventanas (tu Ctrl+hjkl tmux) ──
   {
     "key": "ctrl+h",
@@ -84,6 +93,18 @@
     "key": "shift+tab",
     "command": "workbench.action.previousEditorInGroup",
     "when": "editorTextFocus && neovim.mode == 'normal'"
+  },
+  // ── Panel inferior: navegar entre sus pestañas (Terminal, Problems, ...) ──
+  //    Con el foco en el panel: Alt+h / Alt+l van a la pestaña anterior/siguiente
+  {
+    "key": "alt+h",
+    "command": "workbench.action.previousPanelView",
+    "when": "panelFocus"
+  },
+  {
+    "key": "alt+l",
+    "command": "workbench.action.nextPanelView",
+    "when": "panelFocus"
   },
   // ── Multicursor (tu Ctrl+n) ──
   {

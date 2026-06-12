@@ -31,20 +31,13 @@ opt.smartcase = true
 opt.timeoutlen = 300 -- popup de which-key rápido (como nvim)
 opt.scrolloff = 8
 
--- ── which-key: popup de atajos al apretar leader (como tu nvim) ──────────────
--- Clona which-key.nvim en el packpath nativo (nvim lo carga solo). El primer
--- arranque necesita git + internet; si falla, no rompe nada (pcall).
-local wkpath = vim.fn.stdpath("data") .. "/site/pack/vscode/start/which-key.nvim"
-if not (vim.uv or vim.loop).fs_stat(wkpath) then
-  pcall(vim.fn.system, {
-    "git", "clone", "--depth=1",
-    "https://github.com/folke/which-key.nvim", wkpath,
-  })
-  pcall(vim.cmd, "packloadall")
-end
-pcall(function()
-  require("which-key").setup({ preset = "classic" })
-end)
+-- ── which-key ────────────────────────────────────────────────────────────────
+-- which-key.nvim NO funciona aquí: vscode-neovim no renderiza ventanas
+-- flotantes de Neovim, así que el popup nunca se dibuja aunque el plugin
+-- cargue. El popup lo da la extensión "WhichKey" (VSpaceCode.whichkey):
+-- el menú vive en settings.json ("whichkey.bindings") y se dispara con
+-- espacio desde keybindings.json. Cada opción reenvía las teclas a Neovim
+-- con vscode-neovim.send, así los mappings de este archivo siguen mandando.
 
 -- helper: ejecutar un comando de VSCode (compatible con toda versión)
 local function vsc(command)
@@ -92,9 +85,27 @@ map("n", "<leader>sh", vsc("workbench.action.splitEditorRight"), { desc = "Split
 map("n", "<leader>sv", vsc("workbench.action.splitEditorDown"), { desc = "Split abajo" })
 map("n", "<leader>m", vsc("workbench.action.toggleMaximizeEditorGroup"), { desc = "Maximizar grupo" })
 map("n", "<leader>z", vsc("workbench.action.toggleZenMode"), { desc = "Modo Zen" })
-map("n", "<leader>e", vsc("workbench.action.toggleSidebarVisibility"), { desc = "Toggle explorador" })
+-- Siempre abre el EXPLORADOR (no "lo último que hubiera en el sidebar").
+-- Para cerrarlo: Esc con el foco en el sidebar (ver keybindings.json).
+map("n", "<leader>e", vsc("workbench.view.explorer"), { desc = "Explorador de archivos" })
 map("n", "-", vsc("workbench.action.navigateBack"), { desc = "Volver atrás" })
 map("n", "<leader>,", vscall("workbench.action.showAllEditors"), { desc = "Todos los editores" })
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- TODOs: saltar al siguiente/anterior comentario TODO/FIX/... (como todo-comments)
+-- ════════════════════════════════════════════════════════════════════════════
+local todo_pattern = [[\<\(TODO\|FIX\|FIXME\|HACK\|BUG\|NOTE\|PERF\)\>]]
+map("n", "]t", function()
+  vim.fn.search(todo_pattern, "w")
+end, { desc = "Siguiente TODO" })
+map("n", "[t", function()
+  vim.fn.search(todo_pattern, "bw")
+end, { desc = "TODO anterior" })
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- TERMINAL (tu space f t de LazyVim)
+-- ════════════════════════════════════════════════════════════════════════════
+map("n", "<leader>ft", vsc("workbench.action.terminal.toggleTerminal"), { desc = "Toggle terminal" })
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- BUFFERS / BÚSQUEDA
