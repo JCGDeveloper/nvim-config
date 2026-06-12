@@ -347,48 +347,182 @@ Cerrá y abrí VSCode. Abrí cualquier archivo. Deberías ver:
 
 ---
 
-## Tus binds (migrados desde VSCodeVim)
+## 🎹 Chuleta COMPLETA de atajos
 
-`<leader>` = barra espaciadora. Los de leader están en `init.lua`; los de
-Ctrl/Tab/Esc y los del explorador en `keybindings.json`.
+`<leader>` = **barra espaciadora** en modo normal. Al pulsarla sale el popup de
+which-key con el menú — no hace falta memorizar nada, pero aquí está todo.
 
-**Ventanas / editores**
-| Bind | Acción |
+### Menú leader (popup de which-key)
+
+**Directos**
+| Atajo | Acción |
 |------|--------|
-| `<C-h/j/k/l>` | Moverse entre ventanas |
-| `<C-S-h/j/k/l>` | Mover editor de grupo |
-| `<C-A-h/j/k/l>` | Redimensionar |
-| `Tab` / `S-Tab` | Editor siguiente / anterior |
-| `<leader>sh` / `<leader>sv` | Split derecha / abajo |
-| `<leader>m` / `<leader>z` | Maximizar / Zen |
-| `<leader>e` | Toggle explorador |
-| `-` | Volver atrás |
-| `<leader>,` | Todos los editores |
+| `espacio espacio` | 🗂️ Buscar archivos (quick open) |
+| `espacio ,` | 📑 Lista de todos los editores abiertos |
+| `espacio e` | 🌲 Abrir el explorador de archivos (siempre el explorador) |
+| `espacio z` | 🧘 Modo Zen |
 
-**Buffers / búsqueda / código**
-| Bind | Acción |
+**`espacio m` — Maximizar/Marcas**
+| Atajo | Acción |
 |------|--------|
-| `<leader>bd` / `<leader>bo` | Cerrar editor / cerrar otros |
-| `<leader><space>` | Buscar archivos |
-| `<leader>sg` | Grep en el proyecto |
-| `<leader>gd` `<leader>gr` `<leader>gi` / `gd` `gr` | Definición / referencias / implementación |
-| `K` | Hover |
-| `<leader>ca` `<leader>cr` `<leader>cs` | Code action / rename / ir a símbolo |
-| `<C-n>` | Multicursor (siguiente coincidencia) |
+| `espacio m m` | 🔲 Maximizar/restaurar el grupo de editores |
+| `espacio m d` | 🧹 Borrar todas las marcas de Neovim |
 
-**Edición / git / debug**
-| Bind | Acción |
+**`espacio f` — Archivo/Terminal**
+| Atajo | Acción |
 |------|--------|
-| `<C-c>` | Escape a normal |
-| `<C-b>` (insert) | Borrar hasta fin de palabra |
-| `<C-s>` | Guardar |
-| `J` / `K` (visual) | Mover línea abajo / arriba |
-| `<leader>md` | Borrar todas las marcas |
-| `<leader>gg` | Git (panel SCM) |
-| `<leader>da/dt/do/db/de/dc` | Debug: iniciar/parar/step/breakpoint/hover/continuar |
+| `espacio f t` | 💻 Abrir/cerrar la terminal integrada |
+| `espacio f T` | ➕ Nueva terminal |
+| `espacio f n` | 🆕 Nuevo archivo sin título |
+| `espacio f r` | 🕘 Archivos/carpetas recientes |
+| `espacio f s` | 💾 Guardar todo |
 
-**En el explorador:** `r` renombrar · `a` nuevo archivo · `d` borrar · `c/x/p`
-copiar/cortar/pegar · `s` abrir al lado · `Enter` abrir/expandir.
+**`espacio s` — Buscar/Split**
+| Atajo | Acción |
+|------|--------|
+| `espacio s h` | ➡️ Split a la derecha |
+| `espacio s v` | ⬇️ Split abajo |
+| `espacio s g` | 🔎 Buscar texto en el proyecto (navegable con teclado) |
+| `espacio s G` | 🗂️ Buscar en archivos (panel clásico, regex/reemplazo) |
+| `espacio s t` | 📌 Panel de TODOs (Todo Tree) |
+| `espacio s r` | ♻️ Reemplazar en archivos |
+
+**`espacio b` — Buffers/Editores**
+| Atajo | Acción |
+|------|--------|
+| `espacio b d` | ❌ Cerrar el editor actual |
+| `espacio b o` | 🧹 Cerrar los demás editores **de este grupo** |
+| `espacio b g` | 🗑️ Cerrar los **otros grupos** (splits) |
+| `espacio b a` | 💥 Cerrar todos los editores |
+| `espacio b r` | ♻️ Reabrir el último cerrado |
+
+**`espacio c` — Código**
+| Atajo | Acción |
+|------|--------|
+| `espacio c a` | 💡 Code action (quick fix) |
+| `espacio c r` | ✏️ Renombrar símbolo |
+| `espacio c s` | 🧭 Ir a símbolo del archivo |
+| `espacio c o` | 🗺️ Outline de símbolos |
+| `espacio c f` | 🪄 Formatear documento |
+| `espacio c i` | 📦 Organizar imports |
+
+**`espacio g` — Git/Goto**
+| Atajo | Acción |
+|------|--------|
+| `espacio g g` | 🌿 Panel Git (SCM) |
+| `espacio g d` / `g r` / `g i` | 🎯 Definición / 🔗 Referencias / 🧩 Implementación |
+| `espacio g b` / `g B` | 👤 Blame de la línea / 👥 de todo el archivo (GitLens) |
+| `espacio g h` / `g L` | 🕘 Historial del archivo / 🕐 de la línea |
+| `espacio g l` | 🔍 Detalle del commit de la línea |
+| `espacio g c` | ↔️ Comparar con la versión anterior |
+| `espacio g o` / `g y` | 🌐 Abrir en remoto / 📋 copiar link |
+| `espacio g v` | 🕸️ Grafo de commits |
+
+**`espacio d` — Debug**
+| Atajo | Acción |
+|------|--------|
+| `espacio d a` / `d t` | ▶️ Iniciar / ⏹️ Parar |
+| `espacio d o` / `d c` | ⤵️ Step over / ⏯️ Continuar |
+| `espacio d b` | 🔴 Toggle breakpoint |
+| `espacio d e` | 👁️ Hover de debug |
+
+**`espacio x` — Diagnósticos** · `espacio x x` abre Problems
+
+**`espacio a` — IA**
+| Atajo | Acción |
+|------|--------|
+| `espacio a a` | 💬 Chat de Copilot |
+| `espacio a c` | 🤖 Claude Code en el sidebar |
+| `espacio a i` | ✨ Chat inline en el editor |
+| `espacio a n` / `a h` | 🆕 Chat nuevo / 🕘 historial |
+| `espacio a p` / `a x` | 🔁 Toggle / ❌ cerrar panel de chat |
+| (visual) `espacio a e/f/g/r` | Explicar / arreglar / generar tests / review de la selección |
+
+**`espacio u` — UI/Toggles**
+| Atajo | Acción |
+|------|--------|
+| `espacio u w` / `u m` | ↩️ Word wrap / 🗺️ minimap |
+| `espacio u p` / `u s` | 🧰 Panel inferior / 📊 barra de estado |
+| `espacio u t` / `u f` | 🎨 Elegir tema / 🖥️ pantalla completa |
+
+**`espacio p` — Proyecto/VSCode**
+| Atajo | Acción |
+|------|--------|
+| `espacio p p` | 🎛️ Paleta de comandos |
+| `espacio p o` | 📂 Abrir carpeta |
+| `espacio p s` / `p j` | ⚙️ Settings (UI) / 📝 settings.json |
+| `espacio p k` | ⌨️ Atajos de teclado |
+| `espacio p e` | 🧩 Extensiones |
+
+**`espacio r` — SAP/ABAP**
+| Atajo | Acción |
+|------|--------|
+| `espacio r a` | ✅ Activar el objeto actual (si hay relacionados inactivos, saca la lista) |
+| `espacio r A` | 🚀 Activar varios objetos inactivos |
+| `espacio r g` / `r G` / `r b` | 🖥️ GUI embebido / 🪟 nativo / 🌐 navegador |
+| `espacio r t` | ⚙️ Ejecutar transacción (SE16N sí; SE11/SE80 solo en GUI nativo) |
+| `espacio r x` | 🔤 Elementos de texto |
+| `espacio r s` | 🔍 Buscar objeto del sistema |
+| `espacio r n` | 🆕 Crear objeto |
+| `espacio r T` | 📊 Contenido de una tabla (estilo SE16) |
+| `espacio r u` / `r q` / `r d` | 🧪 Unit tests / 💡 quickfix / 📚 documentación ABAP |
+| `espacio r v a` | 🧪 ATC checks |
+| `espacio r v b` / `v B` | 👤 Blame SAP: mostrar / ocultar |
+| `espacio r v g` | 🕸️ Grafo de dependencias |
+| `espacio r v c` | ↔️ Comparar objeto con otro sistema |
+| `espacio r v t` | 🧫 Crear test include |
+| `espacio r C c` / `C d` | 🔌 Conectar / 🔚 desconectar sistema |
+| `espacio r C m` / `C p` | 🗂️ Gestor de conexiones / 🔑 borrar contraseña guardada |
+
+### Modo normal (sin leader)
+
+| Atajo | Acción |
+|------|--------|
+| `g d` / `g r` | Ir a definición / referencias |
+| `K` | Hover con info del símbolo. **Segunda vez: foco dentro** (flechas para scroll, `Esc` cierra) |
+| `g p d` / `g p D` | Peek de definición / declaración (recuadro sin salir del archivo) |
+| `g p i` / `g p y` / `g p r` | Peek de implementación / tipo / referencias |
+| `g P` | Cerrar el peek |
+| `-` | Volver atrás (navegación) |
+| `] t` / `[ t` | Saltar al siguiente / anterior TODO·FIX·HACK·BUG·NOTE·PERF del archivo |
+| `J` / `K` (en visual) | Mover las líneas seleccionadas abajo / arriba |
+
+### Ctrl / Alt / Tab (VSCode intercepta antes que Neovim)
+
+| Atajo | Acción |
+|------|--------|
+| `Ctrl+h/j/k/l` | Moverse entre grupos de editores (splits) |
+| `Ctrl+Shift+h/j/k/l` | Mover el editor actual a otro grupo |
+| `Ctrl+Alt+h/j/k/l` | Redimensionar el grupo |
+| `Tab` / `Shift+Tab` | Pestaña siguiente / anterior del grupo |
+| `Alt+h` / `Alt+l` | **Con el foco en el panel**: pestaña anterior/siguiente (Terminal, Problems, Output…) |
+| `Ctrl+n` | Multicursor: añadir siguiente coincidencia |
+| `Ctrl+s` | Guardar (en cualquier modo) |
+| `Ctrl+c` | Escape a modo normal |
+| `Ctrl+b` (insert) | Borrar hasta fin de palabra |
+| `Alt+Enter` | Aceptar sugerencia inline de IA |
+| `Ctrl+G` | (solo archivos ABAP remotos) GUI embebido del objeto, como Eclipse |
+| `Ctrl+Q` | Cerrar editor/webview activo; con foco en el chat IA, cierra ese panel |
+| `Esc` (foco en sidebar) | Cerrar el sidebar |
+| `Ctrl+l` (foco en sidebar/chat) | Volver el foco al editor |
+
+### Dentro del explorador de archivos
+
+| Tecla | Acción |
+|------|--------|
+| `r` / `d` | Renombrar / borrar |
+| `a` | Nuevo archivo |
+| `c` / `x` / `p` | Copiar / cortar / pegar |
+| `s` / `S` | Abrir al lado / abrir en split abajo |
+| `Enter` | Abrir archivo o expandir carpeta |
+
+### Atajos propios de la extensión ABAP (de serie)
+
+| Atajo | Acción |
+|------|--------|
+| `Alt+Shift+F3` | Activar objeto |
+| `Ctrl+Shift+F5` / `F6` / `F7` | GUI nativo / navegador / embebido |
+| `Ctrl+Alt+B` | Blame SAP en el margen |
 
 ---
 
@@ -416,17 +550,19 @@ Todo se ajusta en tu `settings.json`:
 > **GlassIt** hace transparente **toda la ventana** (se ve lo que haya detrás),
 > no es blur selectivo como tu nvim — pero es lo más cercano y estable.
 
-### which-key (el único que NO metí, y por qué)
+### which-key (cómo está montado)
 
-Tu nvim muestra un popup de atajos al apretar espacio (which-key). En VSCode
-eso lo daría la extensión *VSpaceCode WhichKey*, **pero choca con vscode-neovim**:
-el `espacio` en modo normal lo maneja Neovim (es tu leader), así que un
-which-key de VSCode tendría que robarle esa tecla y **te rompería todos tus
-`space` binds**. Por eso lo dejé afuera: no vale romper lo que ya funciona.
+El popup de atajos al apretar espacio lo da la extensión **WhichKey**
+(`VSpaceCode.whichkey`). which-key.nvim NO funciona dentro de vscode-neovim
+(no renderiza ventanas flotantes de Neovim). El montaje:
 
-> Alternativa fiel (avanzada, pendiente): instalar `which-key.nvim` dentro del
-> `init.lua` dedicado de vscode-neovim. Requiere bootstrapear un gestor de
-> plugins en ese init. Si lo querés, lo montamos aparte.
+- `keybindings.json` intercepta `espacio` en modo normal y abre el popup.
+- El menú vive en `settings.json` (`whichkey.bindings`).
+- Cada opción reenvía la secuencia a Neovim (`vscode-neovim.send`), así los
+  mappings del `init.lua` siguen siendo la única fuente de verdad. Las opciones
+  nuevas que no existen en nvim llaman al comando de VSCode directamente.
+- Si añadís un atajo nuevo en `init.lua`, añadilo también al menú para que
+  salga en el popup.
 
 ## Si algo no funciona
 
