@@ -1,0 +1,15 @@
+Proyecto ABAP - Practica final:
+  ☐ Generar PDF del horario en espanol @today
+  ☐ Generar PDF del horario en ingles
+  ☐ Enviar correo con ambos adjuntos @high
+  ✔ Conectar al sistema SAP @done(26-06-15 09:40)
+  ✘ Migrar a la API antigua @cancelled(26-06-15)
+    Linea indentada sin checkbox = comentario / nota bajo la tarea.
+
+Mejoras:
+  ☐ Refactorizar f_prepare_email_content @low
+  ☐ Anadir tests unitarios @critical
+    ☐ Subtarea: cubrir el caso pc_body inicial
+    ☐ Subtarea: cubrir el caso multilinea
+
+Archive:

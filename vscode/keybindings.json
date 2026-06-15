@@ -217,5 +217,30 @@
     "key": "enter",
     "command": "list.toggleExpand",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && explorerResourceIsFolder && !inputFocus"
+  },
+  // ── Debugger estilo SAP GUI ──
+  //    Replica las teclas del debugger de SAP GUI: F5 step into, F6 step over,
+  //    F7 step return, F8 continuar. Solo se activan estando PARADO en un
+  //    breakpoint (debugState == 'stopped'), así que fuera del debug F5/F8/etc.
+  //    siguen haciendo lo de siempre. Son funciones, Neovim no las captura.
+  {
+    "key": "f5",
+    "command": "workbench.action.debug.stepInto",
+    "when": "inDebugMode && debugState == 'stopped'"
+  },
+  {
+    "key": "f6",
+    "command": "workbench.action.debug.stepOver",
+    "when": "inDebugMode && debugState == 'stopped'"
+  },
+  {
+    "key": "f7",
+    "command": "workbench.action.debug.stepOut",
+    "when": "inDebugMode && debugState == 'stopped'"
+  },
+  {
+    "key": "f8",
+    "command": "workbench.action.debug.continue",
+    "when": "inDebugMode && debugState == 'stopped'"
   }
 ]

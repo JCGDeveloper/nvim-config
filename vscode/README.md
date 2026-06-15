@@ -46,8 +46,15 @@ En VSCode: `Ctrl+Shift+X` → buscá e instalá una a una:
 | Material Icon Theme | `pkief.material-icon-theme` |
 | GlassIt (transparencia, opcional) | `s-nlf-fh.glassit` |
 | Todo Tree | `Gruntfuggly.todo-tree` |
+| Todo+ (checklist de tareas) | `fabiospampinato.todo-plus` |
 | GitLens | `eamodio.gitlens` |
 | ABAP remote filesystem | `murbani.vscode-abap-remote-fs` |
+
+> 💡 Para gestión de tareas usamos **dos** extensiones complementarias: **Todo Tree**
+> (encuentra y resalta `" TODO:` / `" FIXME:` dentro del código ABAP) y **Todo+**
+> (un checklist en archivos `.todo` que vas tachando con `Alt+D`). Cómo se combinan
+> y por qué TODO Tree no funcionaba con SAP está al final, en
+> [TODO Tree + Todo+ con SAP](#todo-tree--todo-con-sap-abap-remote-filesystem).
 
 ### 3. El `init.lua` de Neovim
 
@@ -614,3 +621,89 @@ copy "$env:USERPROFILE\nvim-config\vscode\init.lua" "$env:LOCALAPPDATA\nvim-vsco
 ```
 
 Y volvé a copiar `settings.json` / `keybindings.json` si los cambiaste.
+
+---
+
+## TODO Tree + Todo+ con SAP (ABAP remote filesystem)
+
+Dos extensiones que se reparten el trabajo:
+
+- **TODO Tree** (`Gruntfuggly.todo-tree`): vive *dentro* del código. Resalta y lista
+  los `" TODO:` / `" FIXME:` de tus comentarios ABAP y te deja saltar entre ellos.
+  Son notas efímeras, pegadas a una línea, que borrás al resolverlas.
+- **Todo+** (`fabiospampinato.todo-plus`): un checklist en archivos `.todo` que
+  tachás con `Alt+D`. Es el plan del proyecto, con prioridades (`@today`, `@high`,
+  `@critical`) y archivado de completados. Persiste aunque cierres el código.
+
+Flujo: el plan grande va al `.todo`; mientras programás dejás `" TODO:`/`" FIXME:`
+en el código. Al terminar algo, borrás el comentario y tachás la tarea.
+
+### ⚠️ Por qué TODO Tree NO funcionaba con el ABAP remote filesystem
+
+Con un proyecto local TODO Tree va solo, pero con el filesystem virtual de SAP
+(esquema `adt://`) hay **cuatro trampas**. Todas están ya resueltas en el
+`settings.json` de este repo; se documentan por si a alguien le pasa:
+
+1. **Extensión "apagada" en workspace virtual.** VSCode deshabilita extensiones
+   en workspaces virtuales salvo que las habilites a mano:
+   `"extensions.supportVirtualWorkspaces": { "Gruntfuggly.todo-tree": true }`.
+
+2. **"Nothing found" / no resalta nada (la causa principal).** TODO Tree solo
+   procesa documentos cuyo *scheme* esté en su lista permitida, que por defecto es
+   `["file","ssh","untitled","vscode-notebook-cell"]`. Los objetos ABAP son
+   `adt://`, así que los ignora. Hay que añadir el scheme:
+   `"todo-tree.general.schemes": ["file","ssh","untitled","vscode-notebook-cell","adt"]`.
+
+3. **No hay archivos en disco que escanear.** En remoto, ripgrep no puede recorrer
+   un filesystem virtual. La solución es escanear los editores **abiertos** (lee el
+   texto del documento en memoria): `"todo-tree.tree.scanMode": "open files"`.
+   Contrapartida: solo ve los objetos que tengas abiertos.
+
+4. **Error `Failed to find vscode-ripgrep`.** Dos sub-problemas:
+   - La clave correcta es **`todo-tree.ripgrep.ripgrep`** (con `ripgrep`
+     repetido), NO `todo-tree.ripgrep`. Si ponés la mala, VSCode la atenúa
+     (no la reconoce) y la ignora.
+   - La ruta apunta a la carpeta de winget, que **lleva el número de versión**.
+     Al actualizar ripgrep cambia el nombre de la carpeta y se rompe. Para
+     rebuscar el `rg.exe`: `where.exe rg`.
+
+### Regex para comentarios ABAP (y el falso positivo de `PERFORM`)
+
+Los comentarios ABAP empiezan por `"` (inline) o `*` (línea completa), que el regex
+por defecto de TODO Tree no reconoce. El regex de este repo es:
+
+```
+"todo-tree.regex.regex": "(\\*|\"|//|#|<!--|;|/\\*)\\s*($TAGS)"
+```
+
+Importante: **sin la rama `^`** (inicio de línea). Con `^`, una línea de código como
+`PERFORM ...` matcheaba el tag `PERF` (es un prefijo de `PERFORM`). Quitando el `^`
+solo disparan los delimitadores de comentario reales. Por eso `PERF` tampoco está
+en la lista de tags. Tras tocar el regex: **Todo Tree: Reset Cache** + **Reload
+Window** (el resaltado se cachea por editor abierto).
+
+### Atajos añadidos (which-key)
+
+| Atajo | Acción |
+|------|--------|
+| `espacio s t` | Abrir lista de TODOs del código (TODO Tree) |
+| `espacio s n` / `s p` | Saltar al TODO siguiente / anterior (en el archivo) |
+| `espacio s j` + tag | Buscar un tag concreto (`TODO`/`FIXME`/`BUG`/…); luego `F3`/`Shift+F3` para recorrerlo |
+| `espacio t t` | Abrir lista de tareas (recientes) — Todo+ |
+| `espacio t d` / `t c` | Marcar hecho ✔ / cancelado ✘ |
+| `espacio t b` | Añadir/quitar checkbox ☐ |
+| `espacio t s` | Iniciar/parar timer de una tarea |
+| `espacio t a` | Archivar completados |
+
+Dentro de un `.todo` también valen los atajos de serie de Todo+: `Alt+D` (hecho),
+`Alt+C` (cancelado), `Ctrl+Enter` (checkbox), `Ctrl+Shift+A` (archivar).
+
+### Todo+ con SAP: el archivo `.todo` va aparte (error `EPERM: open 'C:\TODO'`)
+
+Si ejecutás `Todo: Open` con la conexión SAP como workspace, intenta crear el
+archivo en la raíz y falla (`C:\TODO`, sin permiso). El `.todo` **no** tiene que
+estar en el proyecto: guardalo en una carpeta local tuya y abrilo directamente.
+Como los diálogos quedan atrapados en `adt://`, para abrir un archivo local: arrastralo
+desde el Explorador de Windows a la zona del editor, o abrí una ventana nueva
+(`Ctrl+Shift+N`) sin el workspace de SAP. Hay un `tareas.todo` de ejemplo en la
+raíz del repo con la sintaxis (proyectos acabados en `:`, `☐` pendiente, `@tags`).

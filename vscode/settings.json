@@ -114,24 +114,53 @@
   "editor.formatOnSave": true,        // formatear al guardar (como conform en nvim)
   "editor.inlayHints.enabled": "off", // como en tu config (inlay hints desactivados)
 
-  // ── Todo Tree (resaltar TODO/FIX/HACK, como todo-comments) ───────────────
-  // Forzar activación en workspaces virtuales (ABAP FS): si no, VSCode la
-  // deshabilita. En remoto el árbol no puede escanear (no hay archivos en
-  // disco); si molesta, añadí "todo-tree.tree.scanMode": "open files".
+  // ── Todo Tree (resaltar TODO/FIXME/HACK en el código, como todo-comments) ─
+  // ⚠️ Hacer que funcione con el ABAP remote filesystem (esquema adt://) tiene
+  // 4 trampas. Ver "TODO Tree + Todo+ con SAP" en el README para el detalle.
+  //
+  // (1) Activar la extensión en workspaces virtuales (si no, VSCode la apaga):
   "extensions.supportVirtualWorkspaces": { "Gruntfuggly.todo-tree": true },
-  "todo-tree.highlights.enabled": true,
-  "todo-tree.general.tags": ["TODO", "FIX", "FIXME", "HACK", "BUG", "NOTE", "PERF"],
-  // ripgrep instalado con winget (BurntSushi.ripgrep.MSVC) — ruta estable,
-  // no se rompe con las actualizaciones de VSCode. Si actualizás ripgrep,
-  // cambiará el número de versión de la carpeta: buscá rg.exe de nuevo con
-  // Get-ChildItem "$env:LOCALAPPDATA\Microsoft\WinGet\Packages" -Recurse -Filter rg.exe
-  "todo-tree.ripgrep": "C:\\Users\\jcarrasco6\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BurntSushi.ripgrep.MSVC_Microsoft.Winget.Source_8wekyb3d8bbwe\\ripgrep-15.1.0-x86_64-pc-windows-msvc\\rg.exe",
-  // En el workspace remoto SAP no hay archivos en disco: el panel lista solo
-  // los archivos abiertos. En carpetas locales escanea todo igualmente.
+  // (2) Permitir el esquema adt:// (los objetos ABAP NO son file://). Sin esto
+  //     el árbol dice "Nothing found" y no resalta nada. ESTA es la clave.
+  "todo-tree.general.schemes": ["file", "ssh", "untitled", "vscode-notebook-cell", "adt"],
+  // (3) Escanear los editores ABIERTOS (en remoto no hay archivos en disco que
+  //     ripgrep pueda recorrer; en carpetas locales escanea todo igual).
   "todo-tree.tree.scanMode": "open files",
-  // Regex extendida para reconocer también los comentarios de ABAP:
-  // " comentario inline   y   * comentario de línea completa
-  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|\"|^\\*+)\\s*($TAGS)",
+  // (4) Regex que reconoce los comentarios de ABAP: " inline  y  * de línea.
+  //     OJO: sin "^" para que PERFORM y demás palabras no piquen como tags.
+  "todo-tree.regex.regex": "(\\*|\"|//|#|<!--|;|/\\*)\\s*($TAGS)",
+  "todo-tree.highlights.enabled": true,
+  "todo-tree.general.tags": ["TODO", "FIXME", "FIX", "HACK", "BUG", "NOTE"],
+  // Colores Kanagawa para el resaltado en el editor (tag-and-comment = pinta
+  // el tag y el resto del comentario).
+  "todo-tree.highlights.defaultHighlight": { "type": "tag-and-comment", "foreground": "#1F1F28", "fontWeight": "bold", "borderRadius": "3px" },
+  "todo-tree.highlights.customHighlight": {
+    "TODO":  { "background": "#7E9CD8", "iconColour": "#7E9CD8", "icon": "check" },
+    "FIXME": { "background": "#E82424", "iconColour": "#E82424", "icon": "tools", "foreground": "#DCD7BA" },
+    "FIX":   { "background": "#E82424", "iconColour": "#E82424", "icon": "tools", "foreground": "#DCD7BA" },
+    "BUG":   { "background": "#FF5D62", "iconColour": "#FF5D62", "icon": "bug" },
+    "HACK":  { "background": "#FF9E3B", "iconColour": "#FF9E3B", "icon": "flame" },
+    "NOTE":  { "background": "#98BB6C", "iconColour": "#98BB6C", "icon": "note" }
+  },
+  // ⚠️ La clave correcta es "todo-tree.ripgrep.ripgrep" (NO "todo-tree.ripgrep",
+  // que VSCode atenúa por no reconocerla). ripgrep de winget (BurntSushi.ripgrep
+  // .MSVC); la carpeta lleva el nº de versión, así que al actualizar ripgrep
+  // hay que rebuscar rg.exe con:  where.exe rg
+  "todo-tree.ripgrep.ripgrep": "C:\\Users\\TU_USUARIO\\AppData\\Local\\Microsoft\\WinGet\\Packages\\BurntSushi.ripgrep.MSVC_Microsoft.Winget.Source_8wekyb3d8bbwe\\ripgrep-15.1.0-x86_64-pc-windows-msvc\\rg.exe",
+
+  // ── Todo+ (checklist de tareas en archivos .todo) ────────────────────────
+  // Colores Kanagawa para los .todo (los de fábrica son Monokai y desentonan).
+  // La vista "Embedded" de Todo+ NO ve los objetos adt:// (sin disco), así que
+  // para tags en el código usamos Todo Tree y dejamos Todo+ para el checklist.
+  "todo.colors.done": "#98BB6C",
+  "todo.colors.cancelled": "#C34043",
+  "todo.colors.code": "#FFA066",
+  "todo.colors.comment": "#727169",
+  "todo.colors.project": "#7FB4CA",
+  "todo.colors.projectStatistics": "#6A9589",
+  "todo.colors.tag": "#E6C384",
+  "todo.colors.tags.background": ["#E82424", "#FFA066", "#E6C384", "#957FB8"],
+  "todo.colors.tags.foreground": ["#1F1F28", "#1F1F28", "#1F1F28", "#DCD7BA"],
 
   // ── WhichKey: popup de atajos (como which-key.nvim) ──────────────────────
   // Requiere la extensión VSpaceCode.whichkey. Se dispara con espacio en modo
@@ -168,7 +197,28 @@
         { "key": "g", "name": "🔎 Buscar texto (teclado)", "type": "command", "command": "vscode-neovim.send", "args": "<space>sg" },
         { "key": "G", "name": "🗂️ Buscar en archivos (panel)", "type": "command", "command": "vscode-neovim.send", "args": "<space>sG" },
         { "key": "t", "name": "📌 Lista de TODOs", "type": "command", "command": "vscode-neovim.send", "args": "<space>st" },
+        { "key": "n", "name": "⏭️ TODO siguiente (archivo)", "type": "command", "command": "todo-tree.goToNext" },
+        { "key": "p", "name": "⏮️ TODO anterior (archivo)", "type": "command", "command": "todo-tree.goToPrevious" },
+        {
+          "key": "j", "name": "🎯 +Saltar a tag (Find + F3)", "type": "bindings", "bindings": [
+            { "key": "t", "name": "TODO",  "type": "command", "command": "editor.actions.findWithArgs", "args": { "searchString": "TODO",  "matchWholeWord": true } },
+            { "key": "f", "name": "FIXME", "type": "command", "command": "editor.actions.findWithArgs", "args": { "searchString": "FIXME", "matchWholeWord": true } },
+            { "key": "b", "name": "BUG",   "type": "command", "command": "editor.actions.findWithArgs", "args": { "searchString": "BUG",   "matchWholeWord": true } },
+            { "key": "h", "name": "HACK",  "type": "command", "command": "editor.actions.findWithArgs", "args": { "searchString": "HACK",  "matchWholeWord": true } },
+            { "key": "n", "name": "NOTE",  "type": "command", "command": "editor.actions.findWithArgs", "args": { "searchString": "NOTE",  "matchWholeWord": true } }
+          ]
+        },
         { "key": "r", "name": "♻️ Reemplazar en archivos", "type": "command", "command": "workbench.action.replaceInFiles" }
+      ]
+    },
+    {
+      "key": "t", "name": "✅ +Tareas (Todo+)", "type": "bindings", "bindings": [
+        { "key": "t", "name": "📂 Abrir lista de tareas (recientes)", "type": "command", "command": "workbench.action.openRecent" },
+        { "key": "d", "name": "✔️ Marcar hecho", "type": "command", "command": "todo.toggleDone" },
+        { "key": "c", "name": "✘ Marcar cancelado", "type": "command", "command": "todo.toggleCancelled" },
+        { "key": "b", "name": "☐ Checkbox on/off", "type": "command", "command": "todo.toggleBox" },
+        { "key": "s", "name": "⏱️ Iniciar/parar timer", "type": "command", "command": "todo.toggleStart" },
+        { "key": "a", "name": "🗄️ Archivar completados", "type": "command", "command": "todo.archive" }
       ]
     },
     {
@@ -208,13 +258,25 @@
       ]
     },
     {
-      "key": "d", "name": "🐞 +Debug", "type": "bindings", "bindings": [
-        { "key": "a", "name": "▶️ Iniciar", "type": "command", "command": "vscode-neovim.send", "args": "<space>da" },
-        { "key": "t", "name": "⏹️ Parar", "type": "command", "command": "vscode-neovim.send", "args": "<space>dt" },
-        { "key": "o", "name": "⤵️ Step over", "type": "command", "command": "vscode-neovim.send", "args": "<space>do" },
-        { "key": "b", "name": "🔴 Breakpoint", "type": "command", "command": "vscode-neovim.send", "args": "<space>db" },
-        { "key": "e", "name": "👁️ Hover de debug", "type": "command", "command": "vscode-neovim.send", "args": "<space>de" },
-        { "key": "c", "name": "⏯️ Continuar", "type": "command", "command": "vscode-neovim.send", "args": "<space>dc" }
+      "key": "d", "name": "🐞 +Debug (ABAP/VSCode)", "type": "bindings", "bindings": [
+        { "key": "d", "name": "▶️ Iniciar / attach", "type": "command", "command": "workbench.action.debug.start" },
+        { "key": "D", "name": "🎚️ Elegir config y arrancar", "type": "command", "command": "workbench.action.debug.selectandstart" },
+        { "key": "c", "name": "⏯️ Continuar (F8)", "type": "command", "command": "workbench.action.debug.continue" },
+        { "key": "o", "name": "⤵️ Step over (F6)", "type": "command", "command": "workbench.action.debug.stepOver" },
+        { "key": "i", "name": "⤷ Step into (F5)", "type": "command", "command": "workbench.action.debug.stepInto" },
+        { "key": "u", "name": "⤴️ Step return (F7)", "type": "command", "command": "workbench.action.debug.stepOut" },
+        { "key": "C", "name": "🎯 Ejecutar hasta el cursor", "type": "command", "command": "editor.debug.action.runToCursor" },
+        { "key": "p", "name": "⏸️ Pausar", "type": "command", "command": "workbench.action.debug.pause" },
+        { "key": "r", "name": "🔄 Reiniciar", "type": "command", "command": "workbench.action.debug.restart" },
+        { "key": "x", "name": "⏹️ Parar", "type": "command", "command": "workbench.action.debug.stop" },
+        { "key": "b", "name": "🔴 Toggle breakpoint", "type": "command", "command": "editor.debug.action.toggleBreakpoint" },
+        { "key": "B", "name": "🟠 Breakpoint condicional", "type": "command", "command": "editor.debug.action.conditionalBreakpoint" },
+        { "key": "l", "name": "📍 Logpoint", "type": "command", "command": "editor.debug.action.toggleLogPoint" },
+        { "key": "R", "name": "🧹 Quitar todos los breakpoints", "type": "command", "command": "workbench.debug.viewlet.action.removeAllBreakpoints" },
+        { "key": "w", "name": "👁️ Añadir selección a Watch", "type": "command", "command": "editor.debug.action.selectionToWatch" },
+        { "key": "h", "name": "🔎 Hover de debug", "type": "command", "command": "editor.debug.action.showDebugHover" },
+        { "key": "e", "name": "💬 Debug Console", "type": "command", "command": "workbench.debug.action.toggleRepl" },
+        { "key": "v", "name": "🐞 Panel de Debug", "type": "command", "command": "workbench.view.debug" }
       ]
     },
     {
